@@ -37,6 +37,7 @@ if(isset($_POST["login"])) {
     </head>
 
     <body>
+      <?php include("includes/header.php"); ?>
       <main>
         <h1> Créer un compte </h1>
         <form action="inscription.php" method="POST" name="inscription">
@@ -72,5 +73,6 @@ if(isset($_POST["login"])) {
     	    <button type="submit"> Envoyer </button>
    	    </form>
       </main>
+      <?php include("includes/footer.php"); ?>
     </body>
   </html>

@@ -33,7 +33,9 @@ if(isset($_POST["login"])) {
       <link rel="stylesheet" href="css/form.css"/>
       <meta charset="utf-8">
     </head>
+
     <body>
+      <?php include("includes/header.php"); ?>
       <main>
         <h1> Se connecter </h1>
         <form action="connexion.php" method="POST" name="connexion">
@@ -54,5 +56,6 @@ if(isset($_POST["login"])) {
           <button type="submit"> Valider </button>
         </form>
       </main>
+      <?php include("includes/footer.php"); ?>
     </body>
 </html>
