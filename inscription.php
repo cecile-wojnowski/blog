@@ -16,7 +16,7 @@ if(isset($_POST["login"])) {
     $id_droits = $_POST['id_droits'];
     # Requête : insérer dans la table Utilisateurs les données correspondant à ces variables
     $sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
-            VALUES('$login', '$password', '$email', 'id_droits')";
+            VALUES('$login', '$password', '$email', '$id_droits')";
     # Exécution de la requête :
     if ($mysqli->query($sql) === TRUE) {
       # Redirection vers connexion.php
