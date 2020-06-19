@@ -1,33 +1,37 @@
 <?php
-session_start();
-# Doit contenir un formulaire pré-rempli avec les infos de l'utilisateur
 
 $mysqli = mysqli_connect("127.0.0.1", "root", "", "blog"); # Connexion à la base de données
 $mysqli->set_charset("utf8"); # Permet d'afficher les accents
 
-$login = $_SESSION["login"];
-$password = $_SESSION["password"];
-# Requête permettant d'afficher dans le formulaire les infos de l'utilisateur connecté
-$sql= "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
-$resultat = mysqli_query($mysqli, $sql);
 ?>
 
  <!DOCTYPE html>
  <html>
      <head>
        <title>Profil</title>
-       <link rel="stylesheet" href="css/form.css"/>
+       <link rel="stylesheet" href="style.css"/>
+       <link rel="stylesheet" href="form.css">
        <meta charset="utf-8">
      </head>
 
      <body>
-       <?php include("includes/header.php"); ?>
+       <?php include("header.php");
+          if (isset($_SESSION['login'])){
+
+            $login = $_SESSION["login"];
+            $password = $_SESSION["password"];
+            # Requête permettant d'afficher dans le formulaire les infos de l'utilisateur connecté
+            $sql= "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
+            $resultat = mysqli_query($mysqli, $sql);?>
        <main>
          <h1> Votre profil </h1>
+         <div class="container">
+
          <p class="p_profil"> Le formulaire ci-dessous est pré-rempli avec vos informations actuelles.
             Si vous désirez les changer, vous pouvez entrer directement votre nouveau login et/ou mot de passe,
           puis valider en cliquant sur le bouton "Modifier le profil".</p>
          <?php
+
          # Permet la modification des données par l'utilisateur :
          if(isset($_POST["login"])) {
            $new_login = $_POST['login'];
@@ -48,7 +52,7 @@ $resultat = mysqli_query($mysqli, $sql);
          <!-- Formulaire pré-rempli -->
          <form action="profil.php" method="POST" name="profil">
        	  <div>
-           	<label for="login"> Login:</label>
+           	<label for="login"> Login:</label><br />
            	<input type="text" id="login" name="login" value="<?php if(isset($_POST['login'])){
               echo $_POST['login'];
               $_SESSION['login'] = $_POST['login'];
@@ -59,8 +63,8 @@ $resultat = mysqli_query($mysqli, $sql);
       		</div>
 
        	  <div>
-           	<label for="password"> Mot de passe:</label>
-           	<input type="password" name="password" value="<?php if(isset($_POST['password'])){
+           	<label for="password"> Mot de passe:</label><br />
+           	<input type="password" name="password" values="<?php if(isset($_POST['password'])){
               echo $_POST['password'];
               $_SESSION['password'] = $_POST['password'];
             }else{
@@ -71,8 +75,16 @@ $resultat = mysqli_query($mysqli, $sql);
 
        	  <button type="submit"> Modifier le profil </button>
       	  </form>
-        </main>
+        </div>
 
-        <?php include("includes/footer.php"); ?>
-     </body>
+        </main>
+<?php }
+
+else {
+
+echo "<br /><center>vous ne pouvez pas accéder à cette page sans être connecté(e)"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>";
+
+
+}?>
+</body>
    </html>

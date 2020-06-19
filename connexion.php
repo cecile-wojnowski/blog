@@ -1,61 +1,122 @@
 <?php
-# La page de connexion mène à la page Profil
-$mysqli = mysqli_connect("127.0.0.1", "root", "", "blog"); # Connexion à la base de données
-$mysqli->set_charset("utf8"); # Permet d'afficher les accents
+    if (isset($_GET['deconnexion'])) {
 
-// Si on vient d'un formulaire
-if(isset($_POST["login"])) {
+        unset($_SESSION['login']);
+        //au bout de 2 secondes redirection vers la page d'accueil
+        header("Refresh: 1; url=index.php");
 
-    $login = $_POST["login"];
-    $password = $_POST["password"];
-    $sql= "SELECT * FROM utilisateurs WHERE login = '$login' AND password = '$password'";
-    $resultat = mysqli_query($mysqli, $sql);
-    // Est-ce qu'il y a un user dans la BDD ?
-    if(mysqli_num_rows($resultat) == 1) {
-      // OUI : création de la session, redirection vers profil
-      session_start();
-      $tableau = mysqli_fetch_assoc($resultat);
-      $_SESSION["id"] = $tableau["id"]; # Assigne l'id de la table Utilisateurs dans la session
-      $_SESSION["login"] = $login;
-      $_SESSION["password"] = $password;
-      header("Location:profil.php");
-    } else {
-      // NON : on affichera un message d'erreur
-      $erreur = 1;
+        echo "<p>Vous avez été déconnecté</p><br><p>Redirection vers la page d'accueil...</p>";
     }
-}
+
+  $message = "";
 ?>
 
 <!DOCTYPE html>
-<html>
-    <head>
-      <title>Connexion</title>
-      <link rel="stylesheet" href="css/form.css"/>
-      <meta charset="utf-8">
-    </head>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+    <link href="https://fonts.googleapis.com/css2?family=Scada&display=swap" rel="stylesheet">
 
-    <body>
-      <?php include("includes/header.php"); ?>
-      <main>
-        <h1> Se connecter </h1>
-        <form action="connexion.php" method="POST" name="connexion">
-          <?php
-          if (isset($erreur)){
-            echo "Ce compte n'existe pas ou le mot de passe est incorrect.";
-          }
-          ?>
-      	  <div>
-          	<label for="login"> Login:</label>
-          	<input type="text" id="login" name="login">
-     		  </div>
+    <title>Connexion</title>
+</head>
+<body>
+<header>
+  <?php include("header.php"); ?>
 
-          <div>
-          	<label for="password"> Mot de passe:</label>
-          	<input type="password" name="password">
-          </div>
-          <button type="submit"> Valider </button>
-        </form>
-      </main>
-      <?php include("includes/footer.php"); ?>
-    </body>
+</header>
+<div class="content-connexion">
+
+    <main>
+      <h1>Connexion</h1>
+        <?php
+            if (isset($_SESSION['login']) == false)
+            {
+                $bdd = mysqli_connect("localhost", "root", "", "blog");
+        ?>
+        <div class="container">
+
+                <form action="connexion.php" method="POST">
+                    <p>
+<div class="row">
+
+                      <div class="style_label">
+
+                        <label for="login">Login</label>
+                      </div>
+<div class="style_input">
+  <input type="text" name="login" id="login" required>
+
+</div>
+</div>
+
+<div class="row">
+  <div class="style_label">
+
+  <label for="password">Mot de Passe</label>
+</div>
+
+<div class="style_input">
+  <input type="password" name="password" id="password" required>
+
+</div>
+
+</div>
+<div class="row">
+  <button type="submit" name="connexion" class="bouton">Connexion</button>
+</div>
+                    </p>
+                  </div>
+
+                </form>
+
+        <?php
+                if(isset($_POST['connexion']))
+                {
+                    $login = $_POST['login'];
+                    $mdp = $_POST['password'];
+
+                    $info_log = "SELECT * FROM utilisateurs WHERE login = '$login'";
+                    $info_query = mysqli_query($bdd, $info_log);
+                    $infos = mysqli_fetch_all($info_query, MYSQLI_ASSOC);
+
+                    $mdpbdd = $infos[0]['password'];
+
+                    if(!empty($infos))
+                    {
+                        if(password_verify($mdp, $mdpbdd))
+                        {
+                            session_start();
+                            $_SESSION['login'] = $infos[0]['login'];
+                            $_SESSION['id'] = $infos[0]['id'];
+                            $_SESSION['id_droits'] = $infos[0]['id_droits'];
+                            $_SESSION['password'] = $infos[0]['password'];
+                            header('location:profil.php');
+                        }
+                        else
+                        {
+                            $message = 'mot de passe non reconnu';
+                        }
+                    }
+                    else
+                    {
+                        $message = 'nous ne connaissons pas ce login';
+                    }
+                }
+                mysqli_close($bdd);
+            }
+            else
+            {
+                $message = 'Vous êtes déjà connecté(e) '.$_SESSION['login'].". <br/>Vous devez choisir ce que vous voulez faire, soit
+                créer un événement soit consulter le planning.";
+            }
+        ?>
+        <p class="message">
+            <?php echo $message; ?>
+        </p>
+    </main>
+  </div>
+
+</body>
 </html>
