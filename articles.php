@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,19 +36,15 @@ while ($donnees = $req->fetch())
 ?>
 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
 
-<div class="card-header">
-          <?php echo htmlspecialchars($donnees['article']); ?>
-        </div>
-          <div class="card-body">
+  <div class="card">
+    <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> <h2>
+  <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
+  <h5>le <?php echo $donnees['date']; ?></h5>
 
-        <em>le <?php echo $donnees['date']; ?></em>
-    </div>
+  <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
+  </div>
 
-      <p class="card-text">
 
-    <br />
-    <em><a href="article.php?article=<?php echo $donnees['id']; ?>" class="btn btn-xs btn-primary" >voir l'article</a></em>
-    </p>
 </div>
 <?php
 } // Fin de la boucle des articles
