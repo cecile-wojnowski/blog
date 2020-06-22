@@ -14,19 +14,40 @@
   <?php include('header.php'); ?>
 
 </header>
+<?php
+
+
+
+ ?>
+
 
 <?php
 // Connexion à la base de données blog
 try
 {
-	$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+	$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
+          [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+  # Tests de pagination
+  $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
+  $currentPage = (int)((!isset($_GET['page'])) ? 1 : $_GET["page"]);
+  if ($currentPage <= 0){
+    $currentPage = 1;
+  }
+  $perPage = 12;
+  $pages = ceil($count/$perPage);
+  if($currentPage > $pages){
+    throw new Exception ('Cette page n\'existe pas.');
+  }
+# Fin des tests de pagination
+
 }
 catch(Exception $e)
 {
         die('Erreur : '.$e->getMessage());
 }
 
-// On récupère les 3 derniers articles
+// On récupère les 5 derniers articles
 $req = $bdd->query('SELECT id, article, date, titre FROM articles ORDER BY date DESC');
 
 
