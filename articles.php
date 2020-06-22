@@ -46,10 +46,10 @@ catch(Exception $e)
 {
         die('Erreur : '.$e->getMessage());
 }
-
+$offset = $perPage * ($currentPage - 1);
 // On récupère les 5 derniers articles
-$req = $bdd->query('SELECT id, article, date, titre FROM articles ORDER BY date DESC');
-
+$req = $bdd->query("SELECT id, article, date, titre FROM articles
+            ORDER BY date DESC LIMIT $perPage OFFSET $offset");
 
 //début de la boucle pour afficher les derniers articles
 while ($donnees = $req->fetch())
