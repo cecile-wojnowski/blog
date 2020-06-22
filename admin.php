@@ -11,7 +11,6 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs articles');
 <html>
 <head>
 	  <link href="style.css" rel="stylesheet">
-    <link rel="stylesheet" href="form.css">
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
     <meta charset='utf-8' />
     <title>Admin</title>
@@ -35,28 +34,158 @@ if(isset($_GET['utilisateurs'])){
 
  ?>
 
-	<div class="btn-group2">
 
-<button class="button">  modifier un utilisateur <a href="admin.php?utilisateurs?modifier_compte">cliquez ici</a></button>
+<p>Chercher un utilisateur dans la liste</p>
+ <form method='post'>
+	 <input type='text' placeholder='recherche' name="recherche_valeur"/>
+	 <input type='submit' value="Rechercher"/>
+	 <input type='submit' value="Afficher tout utilisateurs"/>
 
-<?php if(isset($_GET['modifier_compte'])){ ?>
+ </form>
+ <table>
+	 <thead>
+		 <tr><th>login</th><th>Email</th><th>Id</th><th>droits</th></</tr>
+	 </thead>
+	 <tbody>
+		 <?php
+			 $sql='SELECT * FROM utilisateurs';
+			 $params=[];
+			 if(isset($_POST['recherche_valeur'])){
+				 $sql.=' where login like :login';
+				 $params[':login']="%".addcslashes($_POST['recherche_valeur'],'_')."%";
+			 }
+			 $resultats=$bdd->prepare($sql);
+			 $resultats->execute($params);
+			 if($resultats->rowCount()>0){
+				 while($d=$resultats->fetch(PDO::FETCH_ASSOC)){
+				 ?>
+					 <tr><td><?=$d['login']?></td><td><?=$d['email']?></td>
+						 <td><?=$d['id']?></td><td><?=$d['id_droits']?></td>
+						 <td><a href="admin.php?utilisateurs&modifier_compte=<?php echo $d['id'] ?>">modifier</a></td>
+						 <td><a href="">supprimer</a></td>
+						 <td><a href="">changer les droits</a></td><tr>
+				 <?php
+				 }
+				 $resultats->closeCursor();
+			 }
+			 else echo '<tr><td colspan=4>aucun résultat trouvé</td></tr>'.
+			 $connect=null;
+
+		 ?>
+
+	 </tbody>
+ </table
 
 
-<form class="" action="admin.php" method="post">
 
-<input type="text" name="" value="">
+		<button class="button">   <a href="admin.php?utilisateurs&new_compte">ajouter un utilisateur</a></button>
 
+		<?php if(isset($_GET['new_compte'])){ ?>
+
+			<form class="" action="admin.php" method="post" name="ajouter">
+				<table border="0" align="center" cellspacing="2" cellpadding="2">
+					<thead>
+						<center>Nouvel utilisateur</center>
+					</thead>
+			     <tr align="center">
+			       <td>login</td>
+			       <td><input type="text" name="login"></td>
+			     </tr>
+
+					 <tr align="center">
+			       <td>email</td>
+			       <td><input type="text" name="email"></td>
+			     </tr>
+
+			     <tr align="center">
+			       <td>password</td>
+			       <td><input type="password" name="password"></td>
+			     </tr>
+					 <tr align="center">
+			       <td>confirmer password</td>
+			       <td><input type="password" name="confirm_password"></td>
+			     </tr>
+					 <input type="hidden" id="id_droits" name="id_droits" value="1">
+
+			     <tr align="center">
+			       <td colspan="2"><input type="submit" value="ajouter"></td>
+			     </tr>
+			   </table>
+
+
+			</form>
+
+			<?php
+			if(isset($_POST["ajouter"])){
+			if(isset($_POST["login"])) {
+			  if($_POST["password"] != $_POST["confirm_password"]) {
+
+			    header('Location: inscription.php?erreur=1');
+			  } else {
+			    $mysqli = mysqli_connect("127.0.0.1", "root", "", "blog"); # Connexion à la base de données
+			    $mysqli->set_charset("utf8"); # Permet d'afficher les accents
+
+			    $login = $_POST['login'] ;
+			    $password = $_POST['password'];
+			    $email= $_POST['email'];
+			    $id_droits = $_POST['id_droits'];
+			    $passcrypt = password_hash($password, PASSWORD_BCRYPT);
+
+			$sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
+			        VALUES('$login', '$passcrypt', '$email', '$id_droits')";
+
+			    # Exécution de la requête :
+			    if ($mysqli->query($sql) === TRUE) {
+echo "nouvel utilisateur ajouté";
+
+			    } else {
+			      echo "Erreur: " . $sql . "<br>" . $mysqli->error;
+			    }
+			  }
+			}
+		}
+	}
+}
+
+if(isset($_GET['modifier_compte'])){
+
+		  $id  = $_GET["modifier_compte"] ;
+
+		  $sql = "SELECT *
+		            FROM utilisateurs
+			    WHERE id = ".$id ;
+
+		  $requete = mysql_query( $sql, $bdd ) ;
+
+		  //affichage des données:
+		  if( $result = mysql_fetch_object( $requete ) )
+		  {
+		  ?>
+
+			<form name="insertion" action="modification3.php" method="POST">
+  <input type="hidden" name="id" value="<?php echo($id) ;?>">
+  <table border="0" align="center" cellspacing="2" cellpadding="2">
+    <tr align="center">
+      <td>login</td>
+      <td><input type="text" name="nom" value="<?php echo($result->login) ;?>"></td>
+    </tr>
+    <tr align="center">
+      <td>mail</td>
+      <td><input type="text" name="prenom" value="<?php echo($result->email) ;?>"></td>
+    </tr>
+    <tr align="center">
+      <td>id_droits</td>
+      <td><input type="text" name="telephone" value="<?php echo($result->id_droits) ;?>"></td>
+    </tr>
+    <tr align="center">
+      <td colspan="2"><input type="submit" value="modifier"></td>
+    </tr>
+  </table>
 </form>
 
+<<?php } }?>
 
-<?php } ?>
 
-<button class="button">   supprimer un compte <a href="admin.php?supprimer_compte">cliquez ici</a></button>
-
-<button class="button">  Pour changer les droits d'un utilisateur <a href="admin.php?new_compte">cliquez ici</a> </button>
-</div>
-
-<?php } ?>
 
 <h3> <a href="admin.php?articles">Articles</a></h3>
 
@@ -83,7 +212,7 @@ if(isset($_GET['utilisateurs'])){
 
 <h3> <a href="admin.php?commentaires"> Commentaires </a></h3>
 
-<?php if(isset($_GET['articles'])) { ?>
+<?php if(isset($_GET['commentaires'])) { ?>
 
 
 <button class="button">  Pour modifier un commentaire <a href="admin.php?modifier_comment">cliquez ici</a></button>
@@ -96,82 +225,6 @@ if(isset($_GET['utilisateurs'])){
 
 <?php } ?>
 
-
-
-	<div class="admin">
-            <h2> <img src="https://img.icons8.com/wired/64/000000/administrative-tools.png"/> Liste et informations de tout les utilisateurs du site</h2>
-
-        <?php
-        while($user = $utilisateurs->fetch())
-        {
-            ?>
-            <div class="tableau">
-
-
-            <table>
-                <td>
-                    <tr> <?= $user['id'] ?>  </tr>
-                     <tr> <?= $user['login'] ?>  </tr>
-                      </tr> <tr> <?= $user['password'] ?>
-                      </tr>
-                    <?php
-
-                    }?>
-                </td>
-            </table>
-          </div>
-</div>
-
-<div class="admin">
-          <h2> <img src="https://img.icons8.com/wired/64/000000/administrative-tools.png"/> Liste et informations de tout les articles du site</h2>
-
-      <?php
-
-
-      while($article = $article->fetch())
-      {
-          ?>
-          <div class="tableau">
-
-
-          <table>
-              <td>
-                  <tr> <?= $article['id'] ?>  </tr>
-                   <tr> <?= $article['titre'] ?>  </tr>
-                 </tr> <tr> <?= $article['date'] ?>
-                    </tr>
-                  <?php
-
-                  }?>
-              </td>
-          </table>
-        </div>
-</div>
-<div class="admin">
-          <h2> <img src="https://img.icons8.com/wired/64/000000/administrative-tools.png"/> Liste et informations de tout les commentaires du site</h2>
-
-      <?php
-
-
-      while($article = $article->fetch())
-      {
-          ?>
-          <div class="tableau">
-
-
-          <table>
-              <td>
-                  <tr> <?= $article['id'] ?>  </tr>
-                   <tr> <?= $article['titre'] ?>  </tr>
-                 </tr> <tr> <?= $article['date'] ?>
-                    </tr>
-                  <?php
-
-                  }?>
-              </td>
-          </table>
-        </div>
-</div>
 
 
 </body>
