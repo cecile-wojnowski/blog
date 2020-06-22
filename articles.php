@@ -31,7 +31,7 @@ $currentPage = (int)((!isset($_GET['page'])) ? 1 : $_GET["page"]);
 $perPage = 5;
 $pages = ceil($count/$perPage);
   if($currentPage > $pages){
-    throw new Exception ('Cette page n\'existe pas.');
+    $currentPage = 1;
   }
 # Fin des tests de pagination
 
