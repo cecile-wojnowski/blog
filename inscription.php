@@ -14,9 +14,12 @@ if(isset($_POST["login"])) {
     $password = $_POST['password'];
     $email= $_POST['email'];
     $id_droits = $_POST['id_droits'];
-    # Requête : insérer dans la table Utilisateurs les données correspondant à ces variables
-    $sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
-            VALUES('$login', '$password', '$email', '$id_droits')";
+    $passcrypt = password_hash($password, PASSWORD_BCRYPT);
+
+# Requête : insérer dans la table Utilisateurs les données correspondant à ces variables
+$sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
+        VALUES('$login', '$passcrypt', '$email', '$id_droits')";
+
     # Exécution de la requête :
     if ($mysqli->query($sql) === TRUE) {
       # Redirection vers connexion.php
@@ -32,14 +35,19 @@ if(isset($_POST["login"])) {
 <html>
     <head>
       <title> Inscription </title>
-      <link rel="stylesheet" href="css/form.css"/>
+      <link rel="stylesheet" href="form.css"/>
+      <link rel="stylesheet" href="style.css">
       <meta charset="utf-8">
     </head>
 
+
+
     <body>
-      <?php include("includes/header.php"); ?>
+      <?php include("header.php"); ?>
       <main>
         <h1> Créer un compte </h1>
+        <div class="container">
+
         <form action="inscription.php" method="POST" name="inscription">
           <?php
           if (isset($_GET['erreur'])){
@@ -47,32 +55,32 @@ if(isset($_POST["login"])) {
           }
           ?>
     	    <div>
-        	    <label for="login"> Login:</label>
+        	    <label for="login"> Login:</label><br/>
         	     <input type="text" id="login" name="login">
    		    </div>
 
           <div>
-          	<label for="email"> E-mail:</label>
+          	<label for="email"> E-mail:</label><br/>
           	  <input type="email" id="email" name="email">
      		  </div>
 
-          <div>
-          	   <label for="id_droits"> Id_droits:</label>
-          	    <input type="number" id="id_droits" name="id_droits">
-     		  </div>
-
     	    <div>
-        	  <label for="password"> Mot de passe:</label>
+        	  <label for="password"> Mot de passe:</label><br/>
         	  <input type="password" name="password" required>
           </div>
 
           <div>
-        	  <label for="password"> Confirmez votre mot de passe:</label>
+        	  <label for="password"> Confirmez votre mot de passe:</label><br/>
             <input type="password" name="confirm_password" required>
     	    </div>
+
+          <div>
+                 	    <input type="hidden" id="id_droits" name="id_droits" value="1">
+            		  </div>
+
     	    <button type="submit"> Envoyer </button>
+        </div>
    	    </form>
       </main>
-      <?php include("includes/footer.php"); ?>
     </body>
   </html>
