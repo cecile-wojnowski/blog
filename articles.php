@@ -42,24 +42,32 @@ $req = $bdd->query("SELECT id, article, date, titre FROM articles
             ORDER BY date DESC LIMIT $perPage OFFSET $offset");
 
 //début de la boucle pour afficher les derniers articles
-while ($donnees = $req->fetch())
-{
+while ($donnees = $req->fetch()){
 ?>
 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
 
   <div class="card">
     <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> <h2>
-  <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
-  <h5>le <?php echo $donnees['date']; ?></h5>
+      <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
+      <h5>le <?php echo $donnees['date']; ?></h5>
 
-  <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
+      <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
   </div>
-
-
 </div>
+
+<?php }; ?>
+
+<div class = "d-flex justify-content-between my-4">
+  <?php if($currentPage > 1){ ?>
+  <a href="articles.php?page=<?php echo $currentPage - 1 ?>" class="btn btn-primary"> Page précédente </a>
+</div>
+
 <?php
-} // Fin de la boucle des articles
+;}
+// Fin de la boucle des articles
 $req->closeCursor();
 ?>
-    </body>
+
+
+  </body>
 </html>
