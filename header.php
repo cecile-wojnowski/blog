@@ -21,6 +21,9 @@
         $message = "";
 
         if(isset($_SESSION['login'])){
+
+          if($_SESSION['id_droits']== 1){
+
           echo '<div class="navbar"> <a href="index.php"><center>Accueil</center></a>'.
           '<a href="profil.php">  Votre profil    <i>'.$_SESSION['login'].'</i></a>'.
           '<a href="articles.php"> les articles  </a>'.'<div class="dropdown">
@@ -34,24 +37,61 @@
           </div>' .'<a href="index.php?deconnexion">
             <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>';
         }
-        else { ?>
-          <div class="navbar">
-          <a href="index.php">accueil</a>
-          <a href="inscription.php">inscription</a>
-          <a href="connexion.php">connexion</a>
 
-<a href="articles.php">Voir les articles</a>
-<div class="dropdown">
-  <button class="dropbtn">Catégories d'articles
+else if($_SESSION['id_droits']== 42){
+
+echo '<div class="navbar"> <a href="index.php"><center>Accueil</center></a>'.
+'<a href="profil.php">  Votre profil    <i>'.$_SESSION['login'].'</i></a>'.  '<a href="creer-article.php"> écrire un article </a>'
+.
+'<a href="articles.php"> les articles  </a>'.'<div class="dropdown">
+  <button class="dropbtn"> Catégories articles
   </button>
   <div class="dropdown-content">
     <a href="#">Catégorie 1</a>
     <a href="#">Catégorie 2</a>
     <a href="#">Catégorie 3</a>
   </div>
+</div>' .'<a href="index.php?deconnexion">
+  <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>';
+}
+else if($_SESSION['id_droits']== 1337){
+
+echo '<div class="navbar"> <a href="index.php"><center>Accueil</center></a>'.
+'<a href="profil.php">  Votre profil    <i>'.$_SESSION['login'].'</i></a>'.
+'<a href="creer-article.php"> écrire un article </a>'.
+'<a href="admin.php"> espace admin </a>'.
+'<a href="articles.php"> les articles  </a>'.'<div class="dropdown">
+  <button class="dropbtn"> Catégories articles
+  </button>
+  <div class="dropdown-content">
+    <a href="#">Catégorie 1</a>
+    <a href="#">Catégorie 2</a>
+    <a href="#">Catégorie 3</a>
+  </div>
+</div>' .'<a href="index.php?deconnexion">
+  <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>';
+}
+}
+else { ?>
+  <div class="navbar">
+  <a href="index.php">accueil</a>
+  <a href="inscription.php">inscription</a>
+  <a href="connexion.php">connexion</a>
+
+<a href="articles.php">Voir les articles</a>
+<div class="dropdown">
+<button class="dropbtn">Catégories d'articles
+</button>
+<div class="dropdown-content">
+<a href="#">Catégorie 1</a>
+<a href="#">Catégorie 2</a>
+<a href="#">Catégorie 3</a>
 </div>
-      </div>
-        <?php  }?>
+</div>
+</div>
+<?php  }  ?>
+
+
         <?php  if (isset($_GET['deconnexion'])) {
 
               unset($_SESSION['login']);
