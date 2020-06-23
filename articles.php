@@ -5,6 +5,7 @@
       <title>Mon blog</title>
       <link rel="stylesheet" href="style.css">
       <link rel="stylesheet" href="bootstrap.css">
+      <link rel="stylesheet" href="css/button.css">
     </head>
 
   <body>
