@@ -17,15 +17,15 @@
     $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
           [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-    # Tests de pagination
     $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
     $offset = (int)((!isset($_GET['start'])) ? 0 : $_GET["start"]);
     if ($offset < 0){
       $offset = 0;
     }
-    # Fin des tests de pagination
+    
     // On récupère les 5 derniers articles
-    $req = $bdd->query("SELECT id, article, date, titre FROM articles
+    $req = $bdd->query("SELECT id_categorie, categories.id, articles.id, article, date, titre
+                FROM categories, articles WHERE id_categorie = categories.id
                 ORDER BY date DESC LIMIT 5 OFFSET $offset");
 
     //début de la boucle pour afficher les derniers articles
