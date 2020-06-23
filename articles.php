@@ -22,7 +22,9 @@
     if ($offset < 0){
       $offset = 0;
     }
-    
+
+    $categorie =
+
     // On récupère les 5 derniers articles
     $req = $bdd->query("SELECT id_categorie, categories.id, articles.id, article, date, titre
                 FROM categories, articles WHERE id_categorie = categories.id
@@ -51,7 +53,7 @@
 
       <?php
       }; # La page suivante n'est visible que si la page courante est inférieure au nombre de pages
-      if($offset < $count){ ?>
+      if($offset + 5 < $count){ ?>
       <a href="articles.php?start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
     </div>
 
