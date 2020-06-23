@@ -55,12 +55,12 @@
     <div class = "d-flex justify-content-between my-4">
       <?php # La page précédente n'est visible que si la page courante est supérieure à 1
       if($currentPage > 1){ ?>
-        <a href="articles.php?page=<?php echo $currentPage - 1 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+        <a href="articles.php?start=<?php echo $currentPage - 1 ?>" class="btn btn-primary">&laquo; Page précédente </a>
 
       <?php
       }; # La page suivante n'est visible que si la page courante est inférieure au nombre de pages
       if($currentPage < $pages){ ?>
-      <a href="articles.php?page=<?php echo $currentPage + 1 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
+      <a href="articles.php?start=<?php echo $currentPage + 1 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
     </div>
 
     <?php
