@@ -15,7 +15,6 @@
 
 </header>
 
-
 <?php
 // Connexion à la base de données blog
 
@@ -55,11 +54,18 @@ while ($donnees = $req->fetch()){
   </div>
 </div>
 
-<?php }; ?>
+<?php };
 
+# Liens "Page précédente" et "Page suivante" ?>
 <div class = "d-flex justify-content-between my-4">
-  <?php if($currentPage > 1){ ?>
-  <a href="articles.php?page=<?php echo $currentPage - 1 ?>" class="btn btn-primary"> Page précédente </a>
+  <?php # La page précédente n'est visible que si la page courante est supérieure à 1
+  if($currentPage > 1){ ?>
+  <a href="articles.php?page=<?php echo $currentPage - 1 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+
+  <?php
+}; # La page suivante n'est visible que si la page courante est inférieure au nombre de pages
+  if($currentPage < $pages){ ?>
+  <a href="articles.php?page=<?php echo $currentPage + 1 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
 </div>
 
 <?php
