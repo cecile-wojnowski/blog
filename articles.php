@@ -19,22 +19,14 @@
 
     # Tests de pagination
     $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
-    $currentPage = (int)((!isset($_GET['page'])) ? 1 : $_GET["page"]);
-    if ($currentPage <= 0){
-      $currentPage = 1;
-    }
-    $perPage = 5;
-    $pages = ceil($count/$perPage);
-    if($currentPage > $pages){
-      $currentPage = 1;
+    $offset = (int)((!isset($_GET['start'])) ? 0 : $_GET["start"]);
+    if ($offset < 0){
+      $offset = 0;
     }
     # Fin des tests de pagination
-
-
-    $offset = $perPage * ($currentPage - 1);
     // On récupère les 5 derniers articles
     $req = $bdd->query("SELECT id, article, date, titre FROM articles
-                ORDER BY date DESC LIMIT $perPage OFFSET $offset");
+                ORDER BY date DESC LIMIT 5 OFFSET $offset");
 
     //début de la boucle pour afficher les derniers articles
     while ($donnees = $req->fetch()){
@@ -54,13 +46,13 @@
     # Liens "Page précédente" et "Page suivante" ?>
     <div class = "d-flex justify-content-between my-4">
       <?php # La page précédente n'est visible que si la page courante est supérieure à 1
-      if($currentPage > 1){ ?>
-        <a href="articles.php?start=<?php echo $currentPage - 1 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+      if($offset > 1){ ?>
+        <a href="articles.php?start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
 
       <?php
       }; # La page suivante n'est visible que si la page courante est inférieure au nombre de pages
-      if($currentPage < $pages){ ?>
-      <a href="articles.php?start=<?php echo $currentPage + 1 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
+      if($offset < $count){ ?>
+      <a href="articles.php?start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
     </div>
 
     <?php
