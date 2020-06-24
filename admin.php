@@ -66,7 +66,7 @@ if (isset($_GET['utilisateurs'])) {
         }
         $resultats->closeCursor();
     } else {
-        echo '<tr><td colspan=4>aucun résultat trouvé</td></tr>' . $connect = null;
+        echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
     } ?>
 
 	 </tbody>
@@ -135,20 +135,13 @@ if (isset($_GET['new_compte'])) {
 
 if (isset($_GET['modifier_compte'])) {
     if (isset($_POST['modifier'])) {
-        $servname = "localhost";
-        $dbname = "blog";
-        $user = "root";
-        $pass = "";
-
-        $dbco = new PDO("mysql:host=$servname;dbname=$dbname", $user, $pass);
-
         $login2= $_POST['login'];
         $password2= $_POST['password'];
         $email2=$_POST['email'];
         $id_droits2=$_POST['id_droits'];
         $id= $_GET['modifier_compte'];
 
-        $req = $dbco->prepare('UPDATE utilisateurs SET login = :login, password = :password, email = :email, id_droits = :id_droits WHERE id = :id');
+        $req = $bdd->prepare('UPDATE utilisateurs SET login = :login, password = :password, email = :email, id_droits = :id_droits WHERE id = :id');
         $req->execute(array(
     'login' => $login2,
     'password' => $password2,
@@ -167,22 +160,16 @@ if (isset($_GET['modifier_compte'])) {
 
         $req -> closeCursor();
     } else {
-        $servname = "localhost";
-        $dbname = "blog";
-        $user = "root";
-        $pass = "";
 
         // requête pour pré-remplir le formulaire de modification
-        $dbco = new PDO("mysql:host=$servname;dbname=$dbname", $user, $pass);
 
-        $pdoselect = $dbco->prepare('SELECT * FROM utilisateurs WHERE id= :id');
+        $pdoselect = $bdd->prepare('SELECT * FROM utilisateurs WHERE id= :id');
 
         $pdoselect ->bindValue(':id', $_GET['modifier_compte'], PDO::PARAM_INT);
 
         $executepdo= $pdoselect->execute();
 
         $info= $pdoselect->fetch();
-
     } ?>
 
 
@@ -210,7 +197,7 @@ if (isset($_GET['modifier_compte'])) {
 <td><input type="password" name="password" value="<?php echo $info['password'] ?>"></td>
 </tr>
 <tr align="center">
-<td colspan="2"><input name="modifier" type="submit" value="modifier"></td>
+<td><input name="modifier" type="submit" value="modifier"></td>
 </tr>
 </table>
 </form>
@@ -226,16 +213,9 @@ if (isset($_GET['modifier_compte'])) {
 
 <?php //supprimer un compte
  if (isset($_GET['supprimer_compte'])) {
-     $servname = "localhost";
-     $dbname = "blog";
-     $user = "root";
-     $pass = "";
-
      try {
-         $dbco = new PDO("mysql:host=$servname;dbname=$dbname", $user, $pass);
-
          $id = $_GET["supprimer_compte"];
-         $req = $dbco->prepare("DELETE FROM utilisateurs WHERE id = $id");
+         $req = $bdd->prepare("DELETE FROM utilisateurs WHERE id = $id");
          $req->execute();
          echo 'Utilisateur supprimé';
          $delai = 1;
@@ -299,7 +279,7 @@ if (isset($_GET['modifier_compte'])) {
             }
             $resultats->closeCursor();
         } else {
-            echo '<tr><td colspan=4>aucun résultat trouvé</td></tr>' . $connect = null;
+            echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
         }
 
 
@@ -311,32 +291,27 @@ if (isset($_GET['modifier_compte'])) {
 			<button class="button">   <a href="creer-article.php">ajouter un article</a></button>
 			<button class="button">   <a href="admin.php?articles&categorie">ajouter une catégorie</a></button>
 
-
 	<?php
     }
 
 if (isset($_GET['categorie'])) {
 
 //connexion à la base de donnée
-	try
-	{
-		$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
-	}
-	catch(Exception $e)
-	{
-	        die('Erreur : '.$e->getMessage());
-	}
+    try {
+        $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+    } catch (Exception $e) {
+        die('Erreur : '.$e->getMessage());
+    }
 
-if (isset($_POST['creer'])) {
+    if (isset($_POST['creer'])) {
+        $id_categorie=$_POST['id'];
+        $nom_categorie=$_POST['nom_categorie'];
 
-	$id_categorie=$_POST['id'];
-$nom_categorie=$_POST['nom_categorie'];
+        $bdd->exec("INSERT INTO `categories`(`id`, `nom`) VALUES ( '$id_categorie','$nom_categorie')");
 
-	$bdd->exec("INSERT INTO `categories`(`id`, `nom`) VALUES ( '$id_categorie','$nom_categorie')");
-
-	echo 'la catégorie a été ajoutée';
-}
-//req pour ajouter la catégorie dans la base de donnée
+        echo 'la catégorie a été ajoutée';
+    }
+    //req pour ajouter la catégorie dans la base de donnée
 ?>
 
 <form name="creer_categorie" class="" action="" method="post">
@@ -349,118 +324,93 @@ $nom_categorie=$_POST['nom_categorie'];
 </form>
 
 <?php
-
 }
 
-    if (isset($_GET['modifier_article'])) {
-        $servname = "localhost";
-        $dbname = "blog";
-        $user = "root";
-        $pass = "";
-        $id2 = $_GET["modifier_article"];
+                if (isset($_GET['modifier_article'])) {
+                    if (isset($_POST['modifier'])) {
+                        $titre2= $_POST['titre'];
+                        $article2= $_POST['article'];
+                        $id_categorie2=$_POST['id_categorie'];
+												$date2=$_POST['date'];
+                        $id2= $_GET['modifier_article'];
 
-        if (isset($_POST['modifier'])) {
-            $login2 = $_POST['login'];
-            $password2 = $_POST['password'];
-            $email2 = $_POST['email'];
-            $id_droits2 = $_POST['id_droits'];
-
-            try {
-                $dbco = new PDO("mysql:host=$servname;dbname=$dbname", $user, $pass);
-
-                $query = $dbco->prepare('UPDATE utilisateurs SET
-					login = :login,
-					password = :password
-					email = :email
-					id_droits = :id_droits,
-
-						WHERE id = :id');
-
-                $success = $query->execute(array(
-                    ':login' => $_POST['login'],
-                    ':password' => $_POST['password'],
-                    ':email' => $_POST['email'],
-                    ':id_droits' => $_POST['id_droits'],
-                    ':id' => $_GET["modifier_compte"]
-
-                ));
-                var_dump($query);
-
-                if ($success) {
-                    echo 'Modification enregistrée';
-                    $delai = 20;
-                    $url = 'admin.php?utilisateur';
-                    header("Refresh: $delai;url=$url");
-                }
-            } catch (PDOException $e) {
-                $dbco->rollBack();
-                echo "Erreur : " . $e->getMessage();
-            }
-        } ?>
+                        $req2 = $bdd->prepare('UPDATE articles SET titre = :titre, article = :article, id_categorie = :id_categorie, date = :date WHERE id = :id');
+                        $req2->execute(array(
+                    'titre' => $titre2,
+                    'article' => $article2,
+                    'id_categorie' => $id_categorie2,
+                    'date' => $date2,
+                    'id' => $id2
+                    ));
 
 
-				<form name="modification" action="admin.php?utilisateur&modifier_compte" method="POST">
+                        if ($req2) {
+                            echo 'Modification enregistrée';
+                            $delai = 11;
+                            $url = 'admin.php?articles';
+                            header("Refresh: $delai;url=$url");
+                        }
 
+                    } else {
 
-	  <table border="0" align="center" cellspacing="2" cellpadding="2">
-	    <tr align="center">
-	      <td>login</td>
-	      <td><input type="text" name="login" value=""></td>
-	    </tr>
-	    <tr align="center">
-	      <td>mail</td>
-	      <td><input type="text" name="email" value=""></td>
-	    </tr>
-	    <tr align="center">
-	      <td>id_droits</td>
-	<td>
-				<select name="id_droits" id="id_droits">
-				  <option value="1">utilisateur</option>
-				  <option value="42">modérateur</option>
-				  <option value="1337">admin</option>
-	</td>
-	    </tr>
-			<tr align="center">
-				<td>password</td>
-				<td><input type="password" name="password" value=""></td>
-			</tr>
-	    <tr align="center">
-	      <td colspan="2"><input name="modifier" type="submit" value="modifier"></td>
-	    </tr>
-	  </table>
-	</form>
+                        // requête pour pré-remplir le formulaire de modification
+
+                        $pdoselect2 = $bdd->prepare('SELECT * FROM articles WHERE id= :id');
+
+                        $pdoselect2 ->bindValue(':id', $_GET['modifier_article'], PDO::PARAM_INT);
+
+                        $executepdo2= $pdoselect2->execute();
+
+                        $info2= $pdoselect2->fetch();
+                    } ?>
+
+										<form name="modification_article" action="" method="POST">
+										<table border="0" align="center" cellspacing="2" cellpadding="2">
+										<tr align="center">
+										<td>titre</td>
+											<td><input type="text" name="titre" value="<?php echo $info2['titre'] ?>"></td>
+										</tr>
+										<tr align="center">
+										<td>contenu</td>
+										<td><textarea  id="article" name="article"placeholder="<?php echo $info2['article'] ?>"></textarea></td>
+										</tr>
+										<tr align="center">
+										<td>date</td>
+										<td><input type="datetime" name="date"value="<?php echo $info2['date'] ?>"></td>
+										</tr>
+										<tr align="center">
+										<td>catégorie</td>
+										<td><input type="textarea" name="id_categorie"value="<?php echo $info2['id_categorie'] ?>"></td>
+										</tr>
+										<tr align="center">
+
+										</tr>
+
+										<tr align="center">
+										<td><input name="modifier" type="submit" value="modifier"></td>
+										</tr>
+										</table>
+										</form>
 
 	<?php
-    } ?>
+                } ?>
 
 	<?php if (isset($_GET['supprimer_article'])) {
-        $servname = "localhost";
-        $dbname = "blog";
-        $user = "root";
-        $pass = "";
-
-        try {
-            $dbco = new PDO("mysql:host=$servname;dbname=$dbname", $user, $pass);
-
-            $id = $_GET["supprimer_article"];
-            $req = $dbco->prepare("DELETE FROM articles WHERE id = $id");
-            $req->execute();
-            echo 'Article supprimé';
-            $delai = 1;
-            $url = 'admin.php?articles';
-            header("Refresh: $delai;url=$url");
-        } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
-        }
-    }
-
+                    try {
+                        $id = $_GET["supprimer_article"];
+                        $req = $bdd->prepare("DELETE FROM articles WHERE id = $id");
+                        $req->execute();
+                        echo 'Article supprimé';
+                        $delai = 1;
+                        $url = 'admin.php?articles';
+                        header("Refresh: $delai;url=$url");
+                    } catch (PDOException $e) {
+                        echo "Erreur : " . $e->getMessage();
+                    }
+                }
     ?>
 
 	<?php // WARNING: FIN DE LA ZONE ARTICLE?>
-
-
-
-
 
 
 	<?php // WARNING: DEBUT DE LA ZONE COMMENTAIRES>?>
