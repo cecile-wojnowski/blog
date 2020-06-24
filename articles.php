@@ -40,11 +40,19 @@
     <a href="articles.php?categorie=2&start=<?php echo $offset ?>" class="categorie"> Littérature </a>
 
     <?php
-    # Si get catégorie n'est pas utilisé...
-    if (!isset($_GET['categorie'])){
-      //Afficher les 5 derniers articles
+    # Si get catég = 1...
+    if (isset($_GET['categorie']) AND $_GET['categorie'] = 1){
+        # N'afficher que les articles appartenant à la catégorie 1
+
+        # Si get categ = 2...
+    }elseif (isset($_GET['categorie']) AND $_GET['categorie'] = 2){
+        # N'afficher que les articles appartenant à la catégorie 2
+
+        # Si aucune des conditions n'est remplie, afficher les 5 derniers articles
+    }else{
+
       while ($donnees = $req->fetch()){
-      ?>
+        ?>
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
           <div class="card">
 
@@ -55,11 +63,9 @@
             <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
           </div>
         </div>
-      <?php
+        <?php
       }
-    }elseif (isset($_GET['categorie']) AND $_GET['categorie'] = 1){
-        # N'afficher que les articles appartenant à la catégorie 1
-      }; ?>
+    }; ?>
 
     <?php # Liens "Page précédente" et "Page suivante" ?>
     <div class = "d-flex justify-content-between my-4">
