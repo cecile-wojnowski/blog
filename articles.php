@@ -17,7 +17,12 @@
     $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
           [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-    $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
+    if(isset($_GET["categorie"])) {
+      $categorie = $_GET["categorie"];
+      $count = (int)$bdd->query('SELECT COUNT(id) FROM articles WHERE id_categorie = "$categorie" LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
+    } else {
+      $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
+    }
     $offset = (int)((!isset($_GET["start"])) ? 0 : $_GET["start"]);
 
     # Condition empêchant que l'offset soit négatif
@@ -25,10 +30,6 @@
       $offset = 0;
     };
 
-    // On récupère les 5 derniers articles
-    $req = $bdd->query("SELECT articles.id_categorie, categories.id, articles.id, article, date, titre
-                FROM categories, articles WHERE articles.id_categorie = categories.id
-                ORDER BY date DESC LIMIT 5 OFFSET $offset");
 
 
     # Affichage des catégories
@@ -36,21 +37,45 @@
     #$categorie = (!isset($_GET['categorie'])) ? 0 : $_GET['categorie'];
     ?>
 
-    <a href="articles.php?categorie=1&start=<?php echo $offset ?>" class="categorie"> Philosophie </a>
-    <a href="articles.php?categorie=2&start=<?php echo $offset ?>" class="categorie"> Littérature </a>
+    <a href="articles.php?categorie=1" class="categorie"> Philosophie </a>
+    <a href="articles.php?categorie=2" class="categorie"> Littérature </a>
 
     <?php
     # Si get catég = 1...
-    if (isset($_GET['categorie']) AND $_GET['categorie'] = 1){
-        # N'afficher que les articles appartenant à la catégorie 1
+    if (isset($_GET['categorie'])){
+        $categorie = $_GET["categorie"];
 
-        # Si get categ = 2...
-    }elseif (isset($_GET['categorie']) AND $_GET['categorie'] = 2){
-        # N'afficher que les articles appartenant à la catégorie 2
+        // On récupère les 5 derniers articles
+        $req = $bdd->query("SELECT articles.id, article, date, titre
+                    FROM articles
+                    WHERE id_categorie = $categorie
+                    ORDER BY date DESC LIMIT 5 OFFSET $offset");
+
+        # $donnees est un array renvoyé par fetch, qui organise les champs de $req
+        while ($donnees = $req->fetch()){
+          ?>
+          <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card">
+
+              <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
+                <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
+                <h5>le <?php echo $donnees['date']; ?></h5>
+
+              <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
+            </div>
+          </div>
+          <?php
+        }
 
         # Si aucune des conditions n'est remplie, afficher les 5 derniers articles
     }else{
 
+      // On récupère les 5 derniers articles
+      $req = $bdd->query("SELECT articles.id, article, date, titre
+                  FROM articles
+                  ORDER BY date DESC LIMIT 5 OFFSET $offset");
+
+      # $donnees est un array renvoyé par fetch, qui organise les champs de $req
       while ($donnees = $req->fetch()){
         ?>
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
@@ -65,23 +90,28 @@
         </div>
         <?php
       }
-    }; ?>
+    };?>
 
     <?php # Liens "Page précédente" et "Page suivante" ?>
     <div class = "d-flex justify-content-between my-4">
       <?php # Page précédente
-      if($offset > 1){ ?>
-        <a href="articles.php?start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
-
-      <?php
+      if($offset > 1){
+        if(isset($_GET["categorie"])) { ?>
+          <a href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+        <?php } else { ?>
+          <a href="articles.php?start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+        <?php }
     }; # Page suivante
-      if($offset + 5 < $count){ ?>
-      <a href="articles.php?start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
-    </div>
+      if($offset + 5 < $count){
+        if(isset($_GET["categorie"])) { ?>
+          <a href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
+        <?php } else { ?>
+          <a href="articles.php?start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
+        <?php } ?>    </div>
 
     <?php
     ;}
-    // Fin de la boucle des articles
+    // Termine la boucle des articles
     $req->closeCursor();
     ?>
   </body>
