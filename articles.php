@@ -33,15 +33,12 @@
 
 
     # Affichage des catégories
-
-    #$categorie = (!isset($_GET['categorie'])) ? 0 : $_GET['categorie'];
     ?>
 
     <a href="articles.php?categorie=1" class="categorie"> Philosophie </a>
     <a href="articles.php?categorie=2" class="categorie"> Littérature </a>
 
     <?php
-    # Si get catég = 1...
     if (isset($_GET['categorie'])){
         $categorie = $_GET["categorie"];
 
