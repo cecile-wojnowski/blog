@@ -10,6 +10,8 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs articles');
 <head>
 	  <link href="style.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
     <meta charset='utf-8' />
     <title>Admin</title>
 </head>
@@ -18,15 +20,20 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs articles');
 
 </header>
 <body>
+	<div class="container_admin">
+
+	<?php if (isset($_SESSION['login'])){ ?>
 
 <div class="options">
 
-	<h1>ADMIN</h1>
+	<h1> ADMIN</h1>
 	<p>Vous êtes sur la page admin vous avez plusieurs possibilités :</p>
-
+<div>
 	<h3> <a href="admin.php?utilisateurs"> Utilisateurs </a></h3>
-
+</div>
 <?php
+
+
 if (isset($_GET['utilisateurs'])) {
     ?>
 
@@ -157,7 +164,6 @@ if (isset($_GET['modifier_compte'])) {
             $url = 'admin.php?utilisateur';
             header("Refresh: $delai;url=$url");
         }
-
     } else {
 
         // requête pour pré-remplir le formulaire de modification
@@ -169,8 +175,6 @@ if (isset($_GET['modifier_compte'])) {
         $executepdo= $pdoselect->execute();
 
         $info= $pdoselect->fetch();
-
-
     } ?>
 
 
@@ -182,7 +186,7 @@ if (isset($_GET['modifier_compte'])) {
 </tr>
 <tr align="center">
 <td>mail</td>
-<td><input type="text" name="email"value="<?php echo $info['email'] ;?>"></td>
+<td><input type="text" name="email"value="<?php echo $info['email'] ; ?>"></td>
 </tr>
 <tr align="center">
 <td>id_droits</td>
@@ -239,9 +243,9 @@ if (isset($_GET['modifier_compte'])) {
 
 <?php // WARNING: DEBUT DE LA ZONE ARTICLES>?>
 
-
+<div>
 <h3> <a href="admin.php?articles">Articles</a></h3>
-
+</div>
 <?php if (isset($_GET['articles'])) { ?>
 
 
@@ -332,7 +336,7 @@ if (isset($_GET['categorie'])) {
                         $titre2= $_POST['titre'];
                         $article2= $_POST['article'];
                         $id_categorie2=$_POST['id_categorie'];
-												$date2=$_POST['date'];
+                        $date2=$_POST['date'];
                         $id2= $_GET['modifier_article'];
 
                         $req2 = $bdd->prepare('UPDATE articles SET titre = :titre, article = :article, id_categorie = :id_categorie, date = :date WHERE id = :id');
@@ -351,7 +355,6 @@ if (isset($_GET['categorie'])) {
                             $url = 'admin.php?articles';
                             header("Refresh: $delai;url=$url");
                         }
-
                     } else {
 
                         // requête pour pré-remplir le formulaire de modification
@@ -418,11 +421,11 @@ if (isset($_GET['categorie'])) {
 
 
 <div class="btn-group2">
-
+<div>
 <h3> <a href="admin.php?commentaires"> Commentaires </a></h3>
-
+</div>
 <?php if (isset($_GET['commentaires'])) {
-?>
+        ?>
 
 	<p>Chercher un commentaire à partir d'un mot</p>
 	 <form method='post'>
@@ -458,46 +461,45 @@ if (isset($_GET['categorie'])) {
 
 	<?php
 
-	//connexion à la base de donnée
-	    try {
-	        $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
-	    } catch (Exception $e) {
-	        die('Erreur : '.$e->getMessage());
-	    }
+    //connexion à la base de donnée
+        try {
+            $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('Erreur : '.$e->getMessage());
+        }
 
-	                if (isset($_GET['modifier_commentaire'])) {
-	                    if (isset($_POST['modifier'])) {
-	                        $commentaire3= $_POST['commentaire'];
-	                        $date3= $_POST['date'];
-	                        $id3= $_GET['modifier_commentaire'];
+                if (isset($_GET['modifier_commentaire'])) {
+                    if (isset($_POST['modifier'])) {
+                        $commentaire3= $_POST['commentaire'];
+                        $date3= $_POST['date'];
+                        $id3= $_GET['modifier_commentaire'];
 
-	                        $req3 = $bdd->prepare('UPDATE  SET commentaire = :commentaire, date = :date, WHERE id = :id');
-	                        $req3->execute(array(
-	                    'commentaire' => $commentaire3,
-	                    'date' => $date3,
-	                    'id' => $id3,
-	                    ));
+                        $req3 = $bdd->prepare('UPDATE  SET commentaire = :commentaire, date = :date, WHERE id = :id');
+                        $req3->execute(array(
+                        'commentaire' => $commentaire3,
+                        'date' => $date3,
+                        'id' => $id3,
+                        ));
 
 
-	                        if ($req3) {
-	                            echo 'Modification enregistrée';
-	                            $delai = 11;
-	                            $url = 'admin.php?commentaires';
-	                            header("Refresh: $delai;url=$url");
-	                        }
+                        if ($req3) {
+                            echo 'Modification enregistrée';
+                            $delai = 11;
+                            $url = 'admin.php?commentaires';
+                            header("Refresh: $delai;url=$url");
+                        }
+                    } else {
 
-	                    } else {
+                            // requête pour pré-remplir le formulaire de modification
 
-	                        // requête pour pré-remplir le formulaire de modification
+                        $pdoselect3 = $bdd->prepare('SELECT * FROM commentaires WHERE id= :id');
 
-	                        $pdoselect3 = $bdd->prepare('SELECT * FROM commentaires WHERE id= :id');
+                        $pdoselect3 ->bindValue(':id', $_GET['modifier_commentaire'], PDO::PARAM_INT);
 
-	                        $pdoselect3 ->bindValue(':id', $_GET['modifier_commentaire'], PDO::PARAM_INT);
+                        $executepdo3= $pdoselect3->execute();
 
-	                        $executepdo3= $pdoselect3->execute();
-
-	                        $info3= $pdoselect3->fetch();
-	                    } ?>
+                        $info3= $pdoselect3->fetch();
+                    } ?>
 
 											<form name="modification_commentaire" action="" method="POST">
 											<table border="0" align="center" cellspacing="2" cellpadding="2">
@@ -521,26 +523,36 @@ if (isset($_GET['categorie'])) {
 											</form>
 
 		<?php
-	                } ?>
+                } ?>
 
 		<?php if (isset($_GET['supprimer_commentaire'])) {
-	                    try {
-	                        $id = $_GET["supprimer_article"];
-	                        $req = $bdd->prepare("DELETE FROM commentaire WHERE id = $id");
-	                        $req->execute();
-	                        echo 'Article supprimé';
-	                        $delai = 1;
-	                        $url = 'admin.php?articles';
-	                        header("Refresh: $delai;url=$url");
-	                    } catch (PDOException $e) {
-	                        echo "Erreur : " . $e->getMessage();
-	                    }
-	                }
-								}
-							}
-						}
-	    ?>
+                    try {
+                        $id = $_GET["supprimer_article"];
+                        $req = $bdd->prepare("DELETE FROM commentaire WHERE id = $id");
+                        $req->execute();
+                        echo 'Article supprimé';
+                        $delai = 1;
+                        $url = 'admin.php?articles';
+                        header("Refresh: $delai;url=$url");
+                    } catch (PDOException $e) {
+                        echo "Erreur : " . $e->getMessage();
+                    }
+                }
+            }
+        }
+    }
+	}
+	else {
 
+		echo "<br /><center> Bien essayé, mais vous ne pouvez pas accéder à cette page !"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>";
+?>
+
+<img src="philo5.gif" alt="">
+
+<?php	}
+        ?>
+</div>
+			</div>
 
 
 </body>

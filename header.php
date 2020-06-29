@@ -22,11 +22,44 @@
   <body>
     <div class="top">
 
-            <h2> The new blog</h2>
-            <p> ici le sous titre du blog </p>
+      <div class="picture">
+
+        <div class="top_slider">
+          <div id="slider">
+
+          <figure>
+        <img src="philo1.jpg" alt="">
+        <img src="philo2.jpg" alt="">
+        <img src="philo3.jpg" alt="">
+        <img src="philo4.jpg" alt="">
+        <img src="philo4.jpg" alt="">
+          </figure>
+          </div>
+        </div>
+
+
+        <div class="top_text">
+          <h2> La philosophie <br /> expliquée </h2>
+        </div>
+
+        <div class="top_slider">
+          <div id="slider">
+
+          <figure>
+    <img src="philo7.png" alt="">
+    <img src="philo8.jpg" alt="">
+    <img src="philo3.jpg" alt="">
+    <img src="philo4.jpg" alt="">
+    <img src="philo4.jpg" alt="">
+          </figure>
+          </div>
+        </div>
+
+    </div>
+
+
     </div>
     <?php
-
 
         $message = "";
 
@@ -34,8 +67,8 @@
             if ($_SESSION['id_droits']== 1) {
                 ?> '<div class="navbar"> <a href="index.php"><center>Accueil</center></a>
           <a href="profil.php">  Votre profil    <i> <?php $_SESSION['login'] ?></i></a>
-          <a href="articles.php"> les articles  </a> <div class="dropdown">
-            <button class="dropbtn">Catégories d'articles
+          <a href="articles.php"> Articles  </a> <div class="dropdown">
+            <button class="dropbtn">Catégories
             </button>
             <div class="dropdown-content">
               <?php   $reponse = $bdd->query('SELECT * FROM categories');
@@ -65,11 +98,11 @@
            ?><a/>
   </div>
 </div> <a href="index.php?deconnexion">
-  <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>;
+  <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>
 <?php    } elseif ($_SESSION['id_droits']== 1337) { ?>
                 <div class="navbar"> <a href="index.php"><center>Accueil</center></a>
-<a href="profil.php">  Votre profil    <i><?php $_SESSION['login'] ?></i></a>.
-<a href="creer-article.php"> écrire un article </a>'.
+<a href="profil.php">  Votre profil    <i><?php $_SESSION['login'] ?></i></a>
+<a href="creer-article.php"> écrire un article </a>
 <a href="admin.php"> espace admin </a>
 <a href="articles.php"> les articles  </a><div class="dropdown">
   <button class="dropbtn">Catégories d'articles
@@ -84,7 +117,7 @@
            ?><a/>
   </div>
 </div><a href="index.php?deconnexion">
-  <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>';
+  <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></div>
 <?php  }
         } else { ?>
   <div class="navbar">

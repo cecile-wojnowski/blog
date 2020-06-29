@@ -1,6 +1,5 @@
 <?php
     if (isset($_GET['deconnexion'])) {
-
         unset($_SESSION['login']);
         //au bout de 2 secondes redirection vers la page d'accueil
         header("Refresh: 1; url=index.php");
@@ -31,10 +30,8 @@
     <main>
       <h1>Connexion</h1>
         <?php
-            if (isset($_SESSION['login']) == false)
-            {
-                $bdd = mysqli_connect("localhost", "root", "", "blog");
-        ?>
+            if (isset($_SESSION['login']) == false) {
+                $bdd = mysqli_connect("localhost", "root", "", "blog"); ?>
         <div class="container">
 
                 <form action="connexion.php" method="POST">
@@ -72,8 +69,7 @@
                 </form>
 
         <?php
-                if(isset($_POST['connexion']))
-                {
+                if (isset($_POST['connexion'])) {
                     $login = $_POST['login'];
                     $mdp = $_POST['password'];
 
@@ -83,31 +79,23 @@
 
                     $mdpbdd = $infos[0]['password'];
 
-                    if(!empty($infos))
-                    {
-                        if(password_verify($mdp, $mdpbdd))
-                        {
+                    if (!empty($infos)) {
+                        if (password_verify($mdp, $mdpbdd)) {
                             session_start();
                             $_SESSION['login'] = $infos[0]['login'];
                             $_SESSION['id'] = $infos[0]['id'];
                             $_SESSION['id_droits'] = $infos[0]['id_droits'];
                             $_SESSION['password'] = $infos[0]['password'];
                             header('location:profil.php');
-                        }
-                        else
-                        {
+                        } else {
                             $message = 'mot de passe non reconnu';
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $message = 'nous ne connaissons pas ce login';
                     }
                 }
                 mysqli_close($bdd);
-            }
-            else
-            {
+            } else {
                 $message = 'Vous êtes déjà connecté(e) '.$_SESSION['login'].". <br/>Vous devez choisir ce que vous voulez faire, soit
                 créer un événement soit consulter le planning.";
             }

@@ -3,13 +3,10 @@
 $mysqli = mysqli_connect("127.0.0.1", "root", "", "blog"); # Connexion à la base de données
 $mysqli->set_charset("utf8"); # Permet d'afficher les accents
 
-try
-{
-	$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
-}
-catch (Exception $e)
-{
-        die('Erreur : ' . $e->getMessage());
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+} catch (Exception $e) {
+    die('Erreur : ' . $e->getMessage());
 }
 ?>
 
@@ -20,6 +17,8 @@ catch (Exception $e)
        <title>créer un article</title>
        <link rel="stylesheet" href="style.css"/>
 <link rel="stylesheet" href="form.css">
+<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
        <meta charset="utf-8">
      </head>
 
@@ -31,6 +30,7 @@ catch (Exception $e)
 
        </header>
        <main>
+         <?php if (isset($_SESSION['login'])){ ?>
 
 
          <h1> Ecrire un article </h1>
@@ -56,11 +56,11 @@ catch (Exception $e)
   <?php   $reponse = $bdd->query('SELECT * FROM categories');
 
      // On affiche chaque entrée une à une
-     while ($donnees = $reponse->fetch())
-     {
-     ?>
+     while ($donnees = $reponse->fetch()) {
+         ?>
          <p>
-         <strong>catégorie</strong> : <?php echo"<option>". $donnees['nom']."</option>"; }
+         <strong>catégorie</strong> : <?php echo"<option>". $donnees['nom']."</option>";
+     }
          ?><br />
 
    </select>
@@ -68,19 +68,31 @@ catch (Exception $e)
   <button type="submit" name="poster_article"> Poster le nouvel article  </button>
 
   <?php if (isset($_POST['poster_article'])) {
-    $titre=$_POST['titre'];
-    $article=$_POST['article'];
-    $id_utilisateur=$_SESSION['id'];
-    $id_categorie=$_POST['categorie'];
+             $titre=$_POST['titre'];
+             $article=$_POST['article'];
+             $id_utilisateur=$_SESSION['id'];
+             $id_categorie=$_POST['categorie'];
 
-    $sql= "INSERT INTO `articles`( `article`, `id_utilisateur`, `id_categorie`, `date`, `titre`) VALUES ('$article','$id_utilisateur','$id_categorie',NOW(),'$titre')";
+             $sql= "INSERT INTO `articles`( `article`, `id_utilisateur`, `id_categorie`, `date`, `titre`) VALUES ('$article','$id_utilisateur','$id_categorie',NOW(),'$titre')";
 
-    $resultat = mysqli_query($mysqli, $sql);
+             $resultat = mysqli_query($mysqli, $sql);
 
-    echo "l'article a été posté.";
+             echo "l'article a été posté.";
+         }
+
 }
+         else {
+
+       		echo "<br /><center> Bien essayé, mais vous ne pouvez pas accéder à cette page !"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>";
+
 
      ?>
+
+     <center><img src="philo5.gif" alt=""></center>
+
+     <?php	}
+             ?>
+
 </div>
 </div>
 

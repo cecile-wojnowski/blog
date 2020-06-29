@@ -1,8 +1,18 @@
+/******************/
+/* style général */
+/****************/
+body {
+  background: #f1f1f1;
+  font-family: 'Barlow', sans-serif;
+}
+
+/******************/
 /* Navbar général */
+/******************/
 .navbar {
   overflow: hidden;
-  background-color: #333;
-width: 100%;
+  background-color: #DB5461;
+  width: 100%;
 }
 
 /* Liens dans la navbar */
@@ -35,7 +45,7 @@ width: 100%;
 
 /* au hover la navbar change de couleur */
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+  opacity: 0.5;
 }
 
 /* Visibilité du contenu du dropdown qui était caché*/
@@ -44,7 +54,7 @@ width: 100%;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -68,53 +78,205 @@ width: 100%;
   display: block;
 }
 
-/******************/
-/* style général */
-/****************/
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #f1f1f1;
-}
-
-
 /*****************************/
 /*index.php et articles.php */
 /***************************/
-* {
-  box-sizing: border-box;
+@keyframes slidy {
+  0% {
+    left: 0%;
+  }
+
+  20% {
+    left: 0%;
+  }
+
+  25% {
+    left: -100%;
+  }
+
+  45% {
+    left: -100%;
+  }
+
+  50% {
+    left: -200%;
+  }
+
+  70% {
+    left: -200%;
+  }
+
+  75% {
+    left: -300%;
+  }
+
+  95% {
+    left: -300%;
+  }
+
+  100% {
+    left: -400%;
+  }
+}
+
+div#slider {
+  overflow: hidden;
+}
+
+div#slider figure img {
+  width: 20%;
+  float: left;
+height: auto;
+max-height: 250px;
+}
+
+div#slider figure {
+  position: relative;
+  width: 500%;
+  margin: 0;
+  animation: 20s slidy infinite;
+}
+
+.picture  {
+display: flex;
+}
+
+.picture img{
+  width: 100%;
 }
 
 
+.top_text{
+  width: 40%;
+}
+.top_slider{
+  width: 40%;
+}
+
+.container {
+  position: relative;
+}
+
+.image {
+  display: block;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #8AA29E;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dropdown_card {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_card {
+  display: none;
+  position: absolute;
+  background-color: #8AA29E;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1%;
+  z-index: 1;
+}
+
+.dropdown_card:hover .dropdown-content_card {
+  display: block;
+}
 
 .top {
   padding: 1%;
-  font-size: 150%;
+  font-size: 250%;
   text-align: center;
   background: white;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 .leftcolumn {
-  float: left;
-  width: 75%;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
 }
 
 .rightcolumn {
-  float: left;
-  width: 25%;
-  padding-left: 20px;
-}
-
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
 }
 
 .card {
-   background-color: white;
-   padding: 20px;
-   margin-top: 20px;
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+}
+
+.card_network {
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+}
+
+.card_network img {
+  width: 10%;
+}
+
+.card_network a:hover {
+  padding:
+    width: 10%;
+}
+
+.card_img {
+  display: flex;
+}
+
+.card img {
+  margin: 2px;
+  width: 90%;
+}
+
+.card h2 {
+  color: #DB5461;
+}
+
+.card a {
+  text-decoration: none;
+  background-color: #8AA29E;
+  color: white;
+  padding: 0.5%;
+}
+
+.card a:hover {
+  color: #DB5461;
 }
 
 .row:after {
@@ -138,12 +300,10 @@ body {
   }
 }
 
-
 .btn-group2 .button {
-  background-color: #4CAF50; /* Green */
+  background-color: blue;
   border: none;
   color: white;
-  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -154,4 +314,67 @@ body {
 
 .btn-group2 .button:hover {
   background-color: #3e8e41;
+}
+
+/******************/
+/* admin.php */
+/****************/
+.container_admin {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container_admin h1, p {
+  text-align: center;
+}
+
+.container_admin a {
+  text-decoration: none;
+  color: #DB5461;
+}
+
+.container_admin table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+
+.container_admin td, th {
+  border: 1px solid #E3F2FD;
+  text-align: left;
+  padding: 8px;
+}
+
+.container_admin tr:nth-child(even) {
+  background-color: #E3F2FD;
+}
+
+.container_admin input[type=submit] {
+  text-decoration: none;
+  background-color: #DB5461;
+  color: white;
+  border: 0;
+}
+
+.container_admin input[type=submit]:hover {
+  opacity: 0.5;
+}
+
+/******************/
+/* form admin */
+/****************/
+input {
+  padding: 0.5%;
+  margin: 0.5%;
+}
+
+td {
+  padding: 1%;
+}
+
+tr {
+  padding: 1%;
 }

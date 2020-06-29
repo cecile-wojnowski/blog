@@ -101,6 +101,13 @@ else {
 echo "<br /><center>vous ne pouvez pas accéder à cette page sans être connecté(e)"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>";
 
 
-}?>
+?>
+
+<center><img src="philo5.gif" alt=""></center>
+
+<?php	}
+        ?>
+
+
 </body>
    </html>
