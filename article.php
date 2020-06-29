@@ -57,8 +57,8 @@
   ?>
 
   <?php
-    $req = $bdd->prepare('SELECT * FROM commentaires');
-    $req->execute();
+    $req = $bdd->prepare('SELECT * FROM commentaires WHERE id_article = ?');
+    $req->execute(array($_GET['id']));
 
     while ($donnees = $req->fetch())
     {
@@ -73,13 +73,13 @@
 
     if(isset($_POST['commentaire'])){
       $commentaire = $_POST['commentaire'];
-      $req = $bdd->prepare("INSERT INTO commentaires(commentaire, date) VALUES('$commentaire', NOW())");
-      $req->execute();
+      $req = $bdd->prepare("INSERT INTO commentaires(commentaire,id_article, id_utilisateur, date) VALUES(?, ?, ?, NOW())");
+      $req->execute(array($commentaire, $_GET['id'], 0)); #Mettre la variable id_utilisateur à place de 0
       header("Refresh:0");
     }
     ?>
 
-  <form class="form_commentaire" action="article.php" method="post" name="commentaire">
+  <form class="form_commentaire" action="article.php?id=<?php echo $_GET['id']; ?>" method="post" name="commentaire">
     <div class="ajout_commentaire">
       <label> Laissez un commentaire :</label>
       <textarea id = "commentaire" name="commentaire" value="" rows="5" cols="33"></textarea>
