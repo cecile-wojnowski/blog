@@ -1,3 +1,6 @@
+<?php
+
+  ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,26 +38,57 @@
   <?php
   # Joindre Article et Utilisateurs pour afficher le login dans "écrit par"
   // Récupération des articles
-  $req = $bdd->prepare('SELECT id_utilisateur, titre, article, date FROM articles WHERE id  = ?');
-  $req->execute(array($_GET['article']));
-
-  while ($donnees = $req->fetch())
+  if(isset($_GET['id']))
   {
+    $req = $bdd->prepare('SELECT id_utilisateur, titre, article, date FROM articles WHERE id  = ?');
+    $req->execute(array($_GET['id'])); # Ne fonctionne pas
+
+    while ($donnees = $req->fetch())
+    {
+    ?>
+      <p><strong><?php echo htmlspecialchars($donnees['titre']); ?></strong>
+        écrit par <?php echo htmlspecialchars($donnees['id_utilisateur']); ?>
+        le <?php echo $donnees['date']; ?><br>
+      <?php echo htmlspecialchars($donnees['article']); ?></p>
+    <?php
+    } // Fin de la boucle des articles
+    $req->closeCursor();
+  }
   ?>
-    <p><strong><?php echo htmlspecialchars($donnees['titre']); ?></strong>
-      écrit par <?php echo htmlspecialchars($donnees['id_utilisateur']); ?>
-      le <?php echo $donnees['date']; ?><br>
-    <?php echo htmlspecialchars($donnees['article']); ?></p>
 
   <?php
-  } // Fin de la boucle des articles
-  $req->closeCursor();
+    $req = $bdd->prepare('SELECT * FROM commentaires');
+    $req->execute();
 
-  # Afficher les commentaires et le formulaire d'ajout de commentaires
-  ?>
-  <form class="ajout_commentaire" action="article.php" method="post">
+    while ($donnees = $req->fetch())
+    {
+    ?>
+      <p> <?php echo htmlspecialchars($donnees['id_utilisateur']); ?>
+        le <?php echo $donnees['date']; ?><br>
+      <?php echo htmlspecialchars($donnees['commentaire']); ?></p>
+
+    <?php
+    } // Fin de la boucle des commentaires
+    $req->closeCursor();
+
+    if(isset($_POST['commentaire'])){
+      $commentaire = $_POST['commentaire'];
+      $req = $bdd->prepare("INSERT INTO commentaires(commentaire, date) VALUES('$commentaire', NOW())");
+      $req->execute();
+      header("Refresh:0");
+    }
+    ?>
+
+  <form class="form_commentaire" action="article.php" method="post" name="commentaire">
+    <div class="ajout_commentaire">
+      <label> Laissez un commentaire :</label>
+      <textarea id = "commentaire" name="commentaire" value="" rows="5" cols="33"></textarea>
+    </div>
+
+    <div class="submit_commentaire">
+      <input type="submit" value="Envoyer">
+    </div>
   </form>
-
 
   </body>
 </html>

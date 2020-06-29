@@ -58,7 +58,7 @@
                 <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
                 <h5>le <?php echo $donnees['date']; ?></h5>
 
-              <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
+              <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
             </div>
           </div>
           <?php
@@ -82,7 +82,7 @@
               <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
               <h5>le <?php echo $donnees['date']; ?></h5>
 
-            <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
+            <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
           </div>
         </div>
         <?php
