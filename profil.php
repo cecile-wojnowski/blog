@@ -47,6 +47,21 @@ $mysqli->set_charset("utf8"); # Permet d'afficher les accents
 
            echo "Vos données ont été modifiées.";
            }
+
+           if(isset($_GET['supprimer'])){
+             if($_GET['supprimer']!="ok"){
+                 echo "<p>Tu es sûr de vouloir supprimer ce compte définitivement?</p>
+                 <br>
+                 <h2></p><a href='profil.php?supprimer=ok' style='color:red'>OUI</a> <a href='profil.php' style='color:green'>NON</a></h2>";
+             } else {
+                 if(mysqli_query($mysqli,"DELETE FROM utilisateurs WHERE pseudo='$login'")){
+                     echo "Ton compte vient d'être supprimé pour toujours.";
+                     unset($_SESSION['login']);
+                 } else {
+                     echo "Il y a une erreur quelque part ...";
+                 }
+             }
+         }
            ?>
 
          <!-- Formulaire pré-rempli -->
@@ -74,7 +89,8 @@ $mysqli->set_charset("utf8"); # Permet d'afficher les accents
            </div>
 
        	  <button type="submit"> Modifier le profil </button>
-      	  </form>
+
+        </form>
         </div>
 
         </main>
