@@ -44,7 +44,7 @@
        {
        ?>
 
-       <a href="articles.php?categorie=<?php echo $donnees['nom'];
+       <a href="articles.php?categorie=<?php echo $donnees['id'];
            ?>" class="categorie"> <?php  echo $donnees['nom']; }?> </a>
          </div>
 
