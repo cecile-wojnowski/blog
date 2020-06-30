@@ -44,7 +44,7 @@ while ($donnees = $req->fetch()) {
 
         <p>  <?php echo htmlspecialchars($donnees['article']); ?></p>
           <div class="dropdown-content_card">
-        <em><a href="article.php?article=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
+        <em><a href="article.php?id=<?php echo $donnees['id']; ?>"  >voir l'article</a></em>
           </div>
       </div>
 
