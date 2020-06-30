@@ -11,6 +11,8 @@ $mysqli->set_charset("utf8"); # Permet d'afficher les accents
        <title>Profil</title>
        <link rel="stylesheet" href="style.css"/>
        <link rel="stylesheet" href="form.css">
+       <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
        <meta charset="utf-8">
      </head>
 
@@ -101,6 +103,16 @@ else {
 echo "<br /><center>vous ne pouvez pas accéder à cette page sans être connecté(e)"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>";
 
 
-}?>
+?>
+
+<center><img src="philo5.gif" alt=""></center>
+
+<?php	}
+
+ include("footer.php");
+
+        ?>
+
+
 </body>
    </html>
