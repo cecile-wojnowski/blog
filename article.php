@@ -1,6 +1,28 @@
 <?php
+// Connexion à la base de données
+try
+{
+  $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+}
+catch(Exception $e)
+{
+  die('Erreur : '.$e->getMessage());
+}
 
-  ?>
+/* Pour empêcher l'accès à un article inexistant :
+On compte le nombre d'article avec id = $_GET["id"]
+Si il est égal à 0, on redirige */
+$sql = "SELECT count(*) FROM articles WHERE id = ?";
+$result = $bdd->prepare($sql);
+$result->execute(array($_GET["id"]));
+$nombre_resultats = $result->fetchColumn();
+
+if($nombre_resultats == 0) {
+  header("Location:articles.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,17 +40,6 @@
 
     <body>
       <p><a href="articles.php">Retour à la liste des articles</a></p>
-      <?php
-      // Connexion à la base de données
-      try
-      {
-      	$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
-      }
-      catch(Exception $e)
-      {
-        die('Erreur : '.$e->getMessage());
-      }
-      ?>
       <div class="article">
         <h2> Article sélectionné </h2>
         <?php
