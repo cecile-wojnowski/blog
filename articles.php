@@ -1,3 +1,53 @@
+<?php
+// Connexion à la base de données
+try
+{
+  $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+}
+catch(Exception $e)
+{
+  die('Erreur : '.$e->getMessage());
+}
+
+if(!isset($_GET["start"])) {
+  $start = 0;
+} else {
+  $start = (int)$_GET["start"];
+}
+
+/* Conditions empêchant d'entrer des valeurs inexistantes dans $_GET['categorie']
+et dans $_GET['start'] */
+if(isset($_GET["categorie"])) {
+  $sql = "SELECT count(*) FROM `categories` WHERE id = ?";
+  $result = $bdd->prepare($sql);
+  $result->execute(array($_GET["categorie"]));
+  $nombre_resultats = $result->fetchColumn();
+
+  if($nombre_resultats == 0) {
+    header("Location:articles.php");
+  }
+
+  $sql = "SELECT count(*) FROM `articles` WHERE id_categorie = ?";
+  $result = $bdd->prepare($sql);
+  $result->execute(array($_GET["categorie"]));
+  $nombre_articles = $result->fetchColumn();
+
+  if($start > $nombre_articles){
+    header("Location:articles.php");
+  }
+} else {
+  $sql = "SELECT count(*) FROM `articles`";
+  $result = $bdd->prepare($sql);
+  $result->execute();
+  $nombre_articles = $result->fetchColumn();
+
+  if($start > $nombre_articles){
+    header("Location:articles.php");
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,9 +64,6 @@
         <?php include('includes/header.php'); ?>
       </header>
       <?php
-      // Connexion à la base de données blog
-      $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
       # Permet de sélectionner les catégories existant dans la bdd
       if(isset($_GET["categorie"])) {
