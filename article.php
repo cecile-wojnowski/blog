@@ -32,11 +32,11 @@
       <div class="article">
         <h2> Article sélectionné </h2>
         <?php
-        # Joindre Article et Utilisateurs pour afficher le login dans "écrit par"
-        // Récupération des articles
+        # Affichage des articles
         if(isset($_GET['id']))
         {
-          $req = $bdd->prepare('SELECT login, titre, article, date FROM articles, utilisateurs WHERE utilisateurs.id = articles.id_utilisateur AND articles.id  = ?');
+          $req = $bdd->prepare('SELECT login, titre, article, date FROM articles, utilisateurs
+                  WHERE utilisateurs.id = articles.id_utilisateur AND articles.id  = ?');
           $req->execute(array($_GET['id']));
 
           while ($donnees = $req->fetch())
@@ -57,13 +57,15 @@
         ?>
 
         <?php
-        $req = $bdd->prepare('SELECT * FROM commentaires WHERE id_article = ?');
+        # Affichage des commentaires
+        $req = $bdd->prepare('SELECT * FROM commentaires, utilisateurs
+          WHERE commentaires.id_utilisateur = utilisateurs.id AND id_article = ?');
         $req->execute(array($_GET['id']));
 
         while ($donnees = $req->fetch())
         {
         ?>
-          <p> <?php echo htmlspecialchars($donnees['id_utilisateur']); ?>
+          <p> <?php echo htmlspecialchars($donnees['login']); ?>
             le <?php echo $donnees['date']; ?><br>
           <?php echo htmlspecialchars($donnees['commentaire']); ?></p>
 
@@ -74,7 +76,7 @@
         if(isset($_POST['commentaire'])){
           $commentaire = $_POST['commentaire'];
           $req = $bdd->prepare("INSERT INTO commentaires(commentaire,id_article, id_utilisateur, date) VALUES(?, ?, ?, NOW())");
-          $req->execute(array($commentaire, $_GET['id'], 0)); #Mettre la variable id_utilisateur à place de 0
+          $req->execute(array($commentaire, $_GET['id'], $_SESSION['id']));
           header("Refresh:0");
         }
         ?>
