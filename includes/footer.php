@@ -73,18 +73,22 @@
                 <?php  }
                 } else { ?>
                 <div class="navbar_bottom">
-                  <a href="index.php">accueil</a>
-                  <a href="inscription.php">inscription</a>
-                  <a href="connexion.php">connexion</a>
-                  <a href="articles.php">Voir les articles</a>
+                  <div class="liste_footer">
+                    <a href="index.php"> Accueil </a>
+                    <a href="inscription.php"> Inscription </a>
+                    <a href="connexion.php"> Connexion </a>
+                    <a href="articles.php"> Articles </a>
+                  </div>
+                  <div class="liste_categories">
+                    <h4> Catégories : </h4>
+                    <?php   $reponse = $bdd->query('SELECT * FROM categories');
+                    while ($donnees = $reponse->fetch())
+                    {
+                      ?>
+                      <a href="articles.php">   <?php echo $donnees['nom']; }?><a/>
+                  </div>
+                </div>
 
-
-                <?php   $reponse = $bdd->query('SELECT * FROM categories');
-                while ($donnees = $reponse->fetch())
-                {
-                  ?>
-                  <a href="articles.php">   <?php echo $donnees['nom']; }?><a/>
-              </div>
               <?php  }  ?>
   </body>
 </html>
