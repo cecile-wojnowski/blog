@@ -103,19 +103,19 @@
         <?php # Page précédente
         if($offset > 1){
           if(isset($_GET["categorie"])) { ?>
-            <a href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+            <a class="articles_boutons" href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset - 5 ?>">&laquo; Page précédente </a>
             <?php } else { ?>
-            <a href="articles.php?start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
+            <a class="articles_boutons" href="articles.php?start=<?php echo $offset - 5 ?>">&laquo; Page précédente </a>
             <?php
           }
         };
         # Page suivante
         if($offset + 5 < $count){
           if(isset($_GET["categorie"])) { ?>
-            <a href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
+            <a class= "articles_boutons" href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset + 5 ?>"> Page suivante &raquo;</a>
             <?php
           }else{ ?>
-            <a href="articles.php?start=<?php echo $offset + 5 ?>" class="articles_bouton"> Page suivante &raquo;</a>
+            <a class="articles_boutons" href="articles.php?start=<?php echo $offset + 5 ?>"> Page suivante &raquo;</a>
           <?php
           } ?>
       </div>

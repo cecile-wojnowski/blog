@@ -492,7 +492,17 @@ padding: 2%;
 .link_categorie:hover{
   color: #DB5461;
 }
-.articles_bouton{
-
+.previous_next{
+  text-align: center;
+}
+.articles_boutons{
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #8AA29E;
+  color:white;
+}
+.articles_boutons:hover{
+  background-color: #ddd;
+  color: black;
 }
 /*************************/
