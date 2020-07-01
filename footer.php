@@ -44,8 +44,6 @@
 <a href="profil.php">  Votre profil    <i><?php $_SESSION['login']?></i></a><a href="creer-article.php"> écrire un article </a>
 
 <a href="articles.php"> les articles  </a>
-  <button >Catégories d'articles
-  </button>
     <?php   $reponse = $bdd->query('SELECT * FROM categories');
        while ($donnees = $reponse->fetch())
        {
