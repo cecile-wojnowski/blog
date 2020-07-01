@@ -36,7 +36,7 @@
         // Récupération des articles
         if(isset($_GET['id']))
         {
-          $req = $bdd->prepare('SELECT id_utilisateur, titre, article, date FROM articles WHERE id  = ?');
+          $req = $bdd->prepare('SELECT login, titre, article, date FROM articles, utilisateurs WHERE utilisateurs.id = articles.id_utilisateur AND articles.id  = ?');
           $req->execute(array($_GET['id']));
 
           while ($donnees = $req->fetch())
@@ -45,7 +45,7 @@
           <div style="max-width: 70rem;">
             <div class="card_articles">
               <h2><?php echo htmlspecialchars($donnees['titre']); ?></h2>
-                écrit par <?php echo htmlspecialchars($donnees['id_utilisateur']);?>
+                écrit par <?php echo htmlspecialchars($donnees['login']);?>
                 le <?php echo $donnees['date']; ?><br>
               <?php echo htmlspecialchars($donnees['article']); ?></p>
             </div>
