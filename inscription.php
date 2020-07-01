@@ -37,6 +37,8 @@ $sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
       <title> Inscription </title>
       <link rel="stylesheet" href="form.css"/>
       <link rel="stylesheet" href="style.css">
+      <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
       <meta charset="utf-8">
     </head>
 
@@ -81,6 +83,8 @@ $sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
     	    <button type="submit"> Envoyer </button>
         </div>
    	    </form>
+        <?php include("footer.php");
+         ?>
       </main>
     </body>
   </html>

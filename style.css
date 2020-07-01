@@ -1,8 +1,39 @@
+/******************/
+/* style général */
+/****************/
+body {
+  background: #f1f1f1;
+  font-family: 'Barlow', sans-serif;
+  margin: auto;
+  padding: auto;
+}
+
+/*******************/
+/* Header***********/
+/******************/
+
+
+.top {
+  padding: 1%;
+  font-size: 250%;
+  text-align: center;
+  background-image: url("img/philosophes.jpg");
+  opacity: 0.8;
+}
+.top h2 {
+  background-color: white;
+  padding: 0.5%;
+  text-align: center;
+}
+
+
+/******************/
 /* Navbar général */
+/******************/
 .navbar {
   overflow: hidden;
-  background-color: #333;
-width: 100%;
+  background-color: #DB5461;
+  width: 100%;
 }
 
 /* Liens dans la navbar */
@@ -35,7 +66,7 @@ width: 100%;
 
 /* au hover la navbar change de couleur */
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+  opacity: 0.5;
 }
 
 /* Visibilité du contenu du dropdown qui était caché*/
@@ -44,7 +75,7 @@ width: 100%;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -68,81 +99,380 @@ width: 100%;
   display: block;
 }
 
-/******************/
-/* style général */
-/****************/
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #f1f1f1;
-}
-
-
 /*****************************/
-/*index.php et articles.php */
+/********index.php ******** */
 /***************************/
-* {
-  box-sizing: border-box;
+
+/*animation carrousel partie droite index*/
+
+@keyframes slidy {
+  0% {
+    left: 0%;
+  }
+
+  20% {
+    left: 0%;
+  }
+
+  25% {
+    left: -100%;
+  }
+
+  45% {
+    left: -100%;
+  }
+
+  50% {
+    left: -200%;
+  }
+
+  70% {
+    left: -200%;
+  }
+
+  75% {
+    left: -300%;
+  }
+
+  95% {
+    left: -300%;
+  }
+
+  100% {
+    left: -400%;
+  }
 }
 
-/* Add a gray background color with some padding */
+/*style de la div qui fait le carroussel d'image */
 
-
-/* Header/Blog Title */
-.top {
-  padding: 1%;
-  font-size: 150%;
-  text-align: center;
-  background: white;
+div#slider {
+  overflow: hidden;
 }
 
-/* Create two unequal columns that floats next to each other */
-/* Left column */
-.leftcolumn {
+div#slider figure img {
+  width: 20%;
   float: left;
-  width: 75%;
+height: auto;
+max-height: 250px;
 }
 
-/* Right column */
-.rightcolumn {
-  float: left;
-  width: 25%;
-  padding-left: 20px;
+div#slider figure {
+  position: relative;
+  width: 500%;
+  margin: 0;
+  animation: 20s slidy infinite;
 }
 
-/* Fake image */
-.fakeimg {
-  background-color: #aaa;
+.picture  {
+display: flex;
+}
+
+.picture img{
   width: 100%;
-  padding: 20px;
 }
 
-/* Add a card effect for articles */
-.card {
-   background-color: white;
-   padding: 20px;
-   margin-top: 20px;
+.top_text{
+  width: 40%;
+}
+.top_slider{
+  width: 40%;
 }
 
-/* Clear floats after the columns */
+/*catégorie à propos, portraits et overlay
+partie droite de l'index */
+
+
+.container {
+  position: relative;
+}
+
+.image {
+  display: block;
+  height: auto;
+}
+
+/* spécificités de l'overlay*/
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #8AA29E;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+/*liens qui s'affiche au over pour accéder aux articles */
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dropdown_card {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_card {
+  display: none;
+  position: absolute;
+  background-color: #8AA29E;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1%;
+  z-index: 1;
+}
+
+.dropdown_card:hover .dropdown-content_card {
+  display: block;
+}
+
+
+/*positionnement général du contenu index */
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-  margin-top: 20px;
+/*partie gauche du contenu index */
+
+
+.leftcolumn {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
 }
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+/*partie droite du contenu index*/
+
+
+.rightcolumn {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+/*style des différentes boîtes de la page index */
+
+
+.card {
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+}
+
+.card_network {
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+}
+
+.card_network img {
+  width: 10%;
+}
+
+.card_network a:hover {
+  padding:
+    width: 10%;
+}
+
+.card_img {
+  display: flex;
+}
+
+.card img {
+  margin: 2px;
+  width: 90%;
+}
+
+.card h2 {
+  color: #DB5461;
+}
+
+.card a {
+  text-decoration: none;
+  background-color: #8AA29E;
+  color: white;
+  padding: 0.5%;
+}
+
+.card a:hover {
+  color: #DB5461;
+}
+
+
+
 @media screen and (max-width: 800px) {
   .leftcolumn, .rightcolumn {
     width: 100%;
     padding: 0;
   }
+}
+
+.btn-group2 .button {
+  background-color: blue;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-group2 .button:hover {
+  background-color: #3e8e41;
+}
+
+/******************/
+/* admin.php */
+/****************/
+.container_admin {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container_admin h1, p {
+  text-align: center;
+}
+
+.container_admin a {
+  text-decoration: none;
+  color: #DB5461;
+}
+
+.container_admin table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+
+.container_admin td, th {
+  border: 1px solid #E3F2FD;
+  text-align: left;
+  padding: 8px;
+}
+
+.container_admin tr:nth-child(even) {
+  background-color: #E3F2FD;
+}
+
+.container_admin input[type=submit] {
+  text-decoration: none;
+  background-color: #DB5461;
+  color: white;
+  border: 0;
+}
+
+.container_admin input[type=submit]:hover {
+  opacity: 0.5;
+}
+
+/******************/
+/* form admin */
+/****************/
+input {
+  padding: 0.5%;
+  margin: 0.5%;
+}
+
+td {
+  padding: 1%;
+}
+
+tr {
+  padding: 1%;
+}
+
+/******************/
+/*** footer*******/
+/****************/
+
+.navbar_bottom {
+text-align: center;
+background-color: #8AA29E;
+width: 100%;
+float: left;
+padding: 1%;
+
+}
+
+.navbar_bottom a {
+  color: white;
+  text-decoration: none;
+  background-color: #8AA29E;
+  margin: 20px;
+
+}
+
+.navbar_bottom a:hover {
+  opacity: 0.7;
+}
+
+
+/******************/
+/*** article.php**/
+/****************/
+
+
+
+
+/******************/
+/** articles.php**/
+/****************/
+.articles_categories
+{
+margin: 2%;
+padding: 2%;
+}
+
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  flex-direction: row;
+  align-content: flex-end;
+  color:black;
+}
+
+.articles h2 {
+  color:  #DB5461
+}
+
+.articles a {
+  color:  white;
+}
+
+.card_articles {
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+  text-align: left;
 }

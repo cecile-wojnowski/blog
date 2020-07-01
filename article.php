@@ -8,6 +8,9 @@
       <title>Mon blog</title>
     	<link href="style.css" rel="stylesheet" />
       <link rel="stylesheet" href="bootstrap.css">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
     </head>
 
     <header>
@@ -89,6 +92,7 @@
       <input type="submit" value="Envoyer">
     </div>
   </form>
-
+  <?php include("footer.php");
+   ?>
   </body>
 </html>

@@ -4,8 +4,10 @@
       <meta charset="utf-8" />
       <title>Mon blog</title>
       <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="bootstrap.css">
-      <link rel="stylesheet" href="css/button.css">
+      <link rel="stylesheet" href="button.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
     </head>
 
   <body>
@@ -35,8 +37,18 @@
     # Affichage des catégories
     ?>
 
-    <a href="articles.php?categorie=1" class="categorie"> Philosophie </a>
-    <a href="articles.php?categorie=2" class="categorie"> Littérature </a>
+<div class="articles_categorie">
+
+    <?php   $reponse = $bdd->query('SELECT * FROM categories');
+       while ($donnees = $reponse->fetch())
+       {
+       ?>
+
+       <a href="articles.php?categorie=<?php echo $donnees['id'];
+           ?>" class="categorie"> <?php  echo $donnees['nom']; }?> </a>
+         </div>
+
+<div class="articles">
 
     <?php
     if (isset($_GET['categorie'])){
@@ -51,8 +63,7 @@
         # $donnees est un array renvoyé par fetch, qui organise les champs de $req
         while ($donnees = $req->fetch()){
           ?>
-          <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card">
+            <div class="card_articles">
 
               <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
                 <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
@@ -61,6 +72,7 @@
               <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
             </div>
           </div>
+
           <?php
         }
 
@@ -75,8 +87,8 @@
       # $donnees est un array renvoyé par fetch, qui organise les champs de $req
       while ($donnees = $req->fetch()){
         ?>
-        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card">
+        <div style="max-width: 18rem;">
+          <div class="card_articles">
 
             <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
               <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
@@ -90,7 +102,7 @@
     };?>
 
     <?php # Liens "Page précédente" et "Page suivante" ?>
-    <div class = "d-flex justify-content-between my-4">
+    <div class = "d-flex justify-content-between ">
       <?php # Page précédente
       if($offset > 1){
         if(isset($_GET["categorie"])) { ?>
@@ -111,5 +123,10 @@
     // Termine la boucle des articles
     $req->closeCursor();
     ?>
+
+
+    <?php include("footer.php");
+     ?>
+
   </body>
 </html>
