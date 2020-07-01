@@ -467,8 +467,12 @@ padding: 2%;
   color:  #DB5461
 }
 
-.articles a {
-  color:  white;
+.link_voir_article {
+  color: #DB5461;
+  text-decoration: none;
+}
+.link_voir_article:hover{
+  color:black;
 }
 
 .card_articles {

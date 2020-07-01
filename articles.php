@@ -87,10 +87,10 @@
             <div class="card_articles">
 
               <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
-                <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
-                <h5>le <?php echo $donnees['date']; ?></h5>
+              <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
+              <h5>le <?php echo $donnees['date']; ?></h5>
+              <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>">Voir l'article</a></em>
 
-              <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
             </div>
           </div>
           <?php
