@@ -19,6 +19,7 @@
       $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
+      # Permet de sélectionner les catégories existant dans la bdd
       if(isset($_GET["categorie"])) {
         $categorie = $_GET["categorie"];
         $count = (int)$bdd->query('SELECT COUNT(id) FROM articles WHERE id_categorie = "$categorie" LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
@@ -32,71 +33,70 @@
         $offset = 0;
       };
 
-      # Affichage des catégories
       ?>
       <main>
         <div class="articles_categorie">
           <h2> Filtrer par catégorie : </h2>
-
-          <?php   $reponse = $bdd->query('SELECT * FROM categories');
+          <?php
+          # Affichage des catégories
+          $reponse = $bdd->query('SELECT * FROM categories');
           while ($donnees = $reponse->fetch())
           {
           ?>
-
           <a href="articles.php?categorie=<?php echo $donnees['id'];
-            ?>" class="link_categorie"> <?php  echo " ". $donnees['nom']; }?> </a>
+          ?>" class="link_categorie"> <?php  echo " ". $donnees['nom']; }?> </a>
         </div>
 
-      <div class="articles">
-        <?php
-        if (isset($_GET['categorie'])){
-          $categorie = $_GET["categorie"];
+        <div class="articles">
+          <?php  
+          if (isset($_GET['categorie'])){
+            $categorie = $_GET["categorie"];
 
-          // On récupère les 5 derniers articles
-          $req = $bdd->query("SELECT articles.id, article, date, titre
-                      FROM articles
-                      WHERE id_categorie = $categorie
-                      ORDER BY date DESC LIMIT 5 OFFSET $offset");
+            // On récupère les 5 derniers articles
+            $req = $bdd->query("SELECT articles.id, article, date, titre
+                        FROM articles
+                        WHERE id_categorie = $categorie
+                        ORDER BY date DESC LIMIT 5 OFFSET $offset");
 
-          # $donnees est un array renvoyé par fetch, qui organise les champs de $req
-          while ($donnees = $req->fetch()){
-          ?>
-          <div class="card_articles">
-            <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
-            <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
-            <h5> le <?php echo $donnees['date']; ?></h5>
-
-            <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
-          </div>
-
-        <?php
-        }
-        # Si aucune des conditions n'est remplie, afficher les 5 derniers articles
-        }else{
-
-          // On récupère les 5 derniers articles
-          $req = $bdd->query("SELECT articles.id, article, date, titre
-                      FROM articles
-                      ORDER BY date DESC LIMIT 5 OFFSET $offset");
-
-          # $donnees est un array renvoyé par fetch, qui organise les champs de $req
-          while ($donnees = $req->fetch()){
+            # $donnees est un array renvoyé par fetch, qui organise les champs de $req
+            while ($donnees = $req->fetch()){
             ?>
-
             <div style="max-width: 18rem;">
               <div class="card_articles">
-
                 <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
                 <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
-                <h5>le <?php echo $donnees['date']; ?></h5>
-                <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>">Voir l'article</a></em>
+                <h5> le <?php echo $donnees['date']; ?></h5>
 
+                <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
               </div>
             </div>
-            <?php
+
+          <?php
           }
-        };?>
-      </div>
+          # Si aucune des conditions n'est remplie, afficher les 5 derniers articles
+          }else{
+            $req = $bdd->query("SELECT articles.id, article, date, titre
+                        FROM articles
+                        ORDER BY date DESC LIMIT 5 OFFSET $offset");
+
+            # $donnees est un array renvoyé par fetch, qui organise les champs de $req
+            while ($donnees = $req->fetch()){
+              ?>
+
+              <div style="max-width: 18rem;">
+                <div class="card_articles">
+
+                  <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
+                  <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
+                  <h5>le <?php echo $donnees['date']; ?></h5>
+                  <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>">Voir l'article</a></em>
+
+                </div>
+              </div>
+            <?php
+            }
+          };?>
+        </div>
 
       <?php # Liens "Page précédente" et "Page suivante" ?>
       <div class="previous_next">

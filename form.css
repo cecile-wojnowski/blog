@@ -23,6 +23,7 @@ textarea{
 textarea:focus{
   outline: none;
 }
+
 #bouton_commentaire{
   text-decoration: none;
   padding: 8px 16px;
