@@ -16,6 +16,24 @@ textarea{
   display: block;
   margin-left:auto;
   margin-right:auto;
+  border: none;
+  background: none;
+  background-color: white;
+}
+textarea:focus{
+  outline: none;
+}
+#bouton_commentaire{
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #8AA29E;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+#bouton_commentaire:hover{
+  background-color: #ddd;
+  color: black;
 }
 
 /* Set a style for all buttons */

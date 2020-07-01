@@ -86,7 +86,7 @@
           </div>
 
           <div class="submit_commentaire">
-            <input type="submit" value="Envoyer">
+            <input id="bouton_commentaire" type="submit" value="Envoyer">
           </div>
         </form>
       </div>
