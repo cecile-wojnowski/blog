@@ -447,8 +447,9 @@ padding: 1%;
 /******************/
 /** articles.php**/
 /****************/
-.articles_categories
+.articles_categorie
 {
+  text-align:center;
 margin: 2%;
 padding: 2%;
 }
@@ -476,3 +477,18 @@ padding: 2%;
   margin: 20px;
   text-align: left;
 }
+
+/**** Dernier CSS modifié ****/
+.link_categorie{
+  text-decoration: none;
+  background-color: #8AA29E;
+  color: white;
+  padding: 0.5%;
+}
+.link_categorie:hover{
+  color: #DB5461;
+}
+.articles_bouton{
+
+}
+/*************************/
