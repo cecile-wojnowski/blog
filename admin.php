@@ -8,15 +8,15 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs articles');
 <!DOCTYPE html>
 <html>
 <head>
-	  <link href="style.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <meta charset='utf-8' />
     <title>Admin</title>
 </head>
 <header>
-  <?php include("header.php"); ?>
+  <?php include("includes/header.php"); ?>
 
 </header>
 <body>
@@ -556,6 +556,6 @@ if (isset($_GET['categorie'])) {
 </div>
 			</div>
 
-
+			<?php include('includes/footer.php') ?>
 </body>
 </html>

@@ -22,7 +22,7 @@
 </head>
 <body>
 <header>
-  <?php include("header.php"); ?>
+  <?php  include('includes/header.php') ?>
 
 </header>
 <div class="content-connexion">
@@ -106,8 +106,7 @@
     </main>
   </div>
 
-  <?php include("footer.php");
-   ?>
+  <?php  include('includes/footer.php') ?>
 
 </body>
 </html>
