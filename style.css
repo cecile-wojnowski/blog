@@ -412,31 +412,6 @@ tr {
 }
 
 /******************/
-/*** footer*******/
-/****************/
-
-.navbar_bottom {
-text-align: center;
-background-color: #8AA29E;
-width: 100%;
-float: left;
-padding: 1%;
-
-}
-
-.navbar_bottom a {
-  color: white;
-  text-decoration: none;
-  background-color: #8AA29E;
-  margin: 20px;
-
-}
-
-.navbar_bottom a:hover {
-  opacity: 0.7;
-}
-
-/******************/
 /** articles.php**/
 /****************/
 .articles_categorie
@@ -474,7 +449,6 @@ padding: 2%;
   text-align: left;
 }
 
-/**** Dernier CSS modifié ****/
 .link_categorie{
   text-decoration: none;
   background-color: #8AA29E;
@@ -503,6 +477,28 @@ padding: 2%;
 /****************/
 .article{
   text-align: center;
+}
+/******************/
+/*** footer*******/
+/****************/
+
+.navbar_bottom {
+text-align: center;
+background-color: #8AA29E;
+width: 100%;
+padding: 1%;
+margin-top:10%;
+}
+
+.navbar_bottom a {
+  color: white;
+  text-decoration: none;
+  background-color: #8AA29E;
+  margin: 20px;
+}
+
+.navbar_bottom a:hover {
+  opacity: 0.7;
 }
 
 /*************************/

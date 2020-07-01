@@ -5,14 +5,13 @@
       <title>Mon blog</title>
       <link rel="stylesheet" href="style.css">
       <link rel="stylesheet" href="button.css">
-
       <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
     </head>
 
     <body>
       <header>
-        <?php include('header.php'); ?>
+        <?php include('includes/header.php'); ?>
       </header>
       <?php
       // Connexion à la base de données blog
@@ -48,7 +47,7 @@
         </div>
 
         <div class="articles">
-          <?php  
+          <?php
           if (isset($_GET['categorie'])){
             $categorie = $_GET["categorie"];
 
@@ -126,7 +125,6 @@
       ?>
     </main>
 
-    <?php include("footer.php");
-     ?>
+    <?php include("includes/footer.php"); ?>
   </body>
 </html>
