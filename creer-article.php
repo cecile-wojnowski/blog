@@ -75,10 +75,8 @@ try {
 
              $sql= "INSERT INTO `articles`( `article`, `id_utilisateur`, `id_categorie`, `date`, `titre`)
              VALUES ('$article',$id_utilisateur, $id_categorie,NOW(),'$titre')";
-             echo $sql;
 
              $resultat = mysqli_query($mysqli, $sql);
-             echo $_POST['categorie'];
              echo "l'article a été posté.";
          }
 
