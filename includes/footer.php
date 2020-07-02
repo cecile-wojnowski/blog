@@ -42,7 +42,7 @@
             }elseif ($_SESSION['id_droits']== 42){ ?>
               <div class="navbar_bottom">
                 <a href="index.php"><center>Accueil</center></a>
-                <a href="profil.php">  Votre profil    <i><?php $_SESSION['login']?></i></a>
+                <a href="profil.php">  Votre profil <i><?php $_SESSION['login']?></i></a>
                 <a href="creer-article.php"> écrire un article </a>
                 <a href="articles.php"> les articles  </a>
                 <?php   $reponse = $bdd->query('SELECT * FROM categories');
@@ -56,20 +56,12 @@
                 }elseif ($_SESSION['id_droits']== 1337){ ?>
                   <div class="navbar_bottom">
                     <a href="index.php"><center>Accueil</center></a>
-                    <a href="profil.php">  Votre profil <i><?php $_SESSION['login'] ?></i></a>
+                    <a href="profil.php"> Votre profil <i><?php $_SESSION['login'] ?></i></a>
                     <a href="creer-article.php"> écrire un article </a>
                     <a href="admin.php"> espace admin </a>
                     <a href="articles.php"> les articles </a>
                   </div>
 
-
-                <?php   $reponse = $bdd->query('SELECT * FROM categories');
-                while ($donnees = $reponse->fetch())
-                {
-                ?>
-                <a href="">
-                <?php echo $donnees['nom']; }
-               ?><a/>
                 <?php  }
                 } else { ?>
                 <div class="navbar_bottom">
@@ -79,13 +71,15 @@
                     <a href="connexion.php"> Connexion </a>
                     <a href="articles.php"> Articles </a>
                   </div>
+
                   <div class="liste_categories">
                     <h4> Catégories : </h4>
                     <?php   $reponse = $bdd->query('SELECT * FROM categories');
                     while ($donnees = $reponse->fetch())
                     {
                       ?>
-                      <a href="articles.php">   <?php echo $donnees['nom']; }?><a/>
+                      <a href="articles.php?categorie=<?php echo $donnees['id'];
+                      ?>" class="link_categorie"> <?php  echo " ". $donnees['nom']; }?> </a>
                   </div>
                 </div>
 
