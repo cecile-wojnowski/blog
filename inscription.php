@@ -45,7 +45,7 @@ $sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
 
 
     <body>
-      <?php include("header.php"); ?>
+      <?php  include('includes/header.php') ?>
       <main>
         <h1> Créer un compte </h1>
         <div class="container">
@@ -83,8 +83,7 @@ $sql = "INSERT INTO utilisateurs(login, password, email, id_droits)
     	    <button type="submit"> Envoyer </button>
         </div>
    	    </form>
-        <?php include("footer.php");
-         ?>
+        <?php  include('includes/footer.php') ?>
       </main>
     </body>
   </html>

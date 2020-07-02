@@ -26,7 +26,7 @@ try {
 
        <header>
 
-         <?php include("header.php"); ?>
+         <?php  include('includes/header.php') ?>
 
        </header>
        <main>
@@ -101,7 +101,6 @@ try {
         </main>
 
 
-<?php include("footer.php");
- ?>
+<?php  include('includes/footer.php') ?>
      </body>
    </html>

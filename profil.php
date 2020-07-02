@@ -17,7 +17,7 @@ $mysqli->set_charset("utf8"); # Permet d'afficher les accents
      </head>
 
      <body>
-       <?php include("header.php");
+       <?php include('includes/header.php');
           if (isset($_SESSION['login'])){
 
             $login = $_SESSION["login"];
@@ -109,7 +109,7 @@ echo "<br /><center>vous ne pouvez pas accéder à cette page sans être connect
 
 <?php	}
 
- include("footer.php");
+ include("includes/footer.php");
 
         ?>
 

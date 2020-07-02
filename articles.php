@@ -1,3 +1,53 @@
+<?php
+// Connexion à la base de données
+try
+{
+  $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+}
+catch(Exception $e)
+{
+  die('Erreur : '.$e->getMessage());
+}
+
+if(!isset($_GET["start"])) {
+  $start = 0;
+} else {
+  $start = (int)$_GET["start"];
+}
+
+/* Conditions empêchant d'entrer des valeurs inexistantes dans $_GET['categorie']
+et dans $_GET['start'] */
+if(isset($_GET["categorie"])) {
+  $sql = "SELECT count(*) FROM `categories` WHERE id = ?";
+  $result = $bdd->prepare($sql);
+  $result->execute(array($_GET["categorie"]));
+  $nombre_resultats = $result->fetchColumn();
+
+  if($nombre_resultats == 0) {
+    header("Location:articles.php");
+  }
+
+  $sql = "SELECT count(*) FROM `articles` WHERE id_categorie = ?";
+  $result = $bdd->prepare($sql);
+  $result->execute(array($_GET["categorie"]));
+  $nombre_articles = $result->fetchColumn();
+
+  if($start > $nombre_articles){
+    header("Location:articles.php");
+  }
+} else {
+  $sql = "SELECT count(*) FROM `articles`";
+  $result = $bdd->prepare($sql);
+  $result->execute();
+  $nombre_articles = $result->fetchColumn();
+
+  if($start > $nombre_articles){
+    header("Location:articles.php");
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,128 +55,124 @@
       <title>Mon blog</title>
       <link rel="stylesheet" href="style.css">
       <link rel="stylesheet" href="button.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
     </head>
 
-  <body>
-    <header>
-      <?php include('header.php'); ?>
-    </header>
-    <?php
-    // Connexion à la base de données blog
-    $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '',
-          [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    <body>
+      <header>
+        <?php include('includes/header.php'); ?>
+      </header>
+      <?php
 
-    if(isset($_GET["categorie"])) {
-      $categorie = $_GET["categorie"];
-      $count = (int)$bdd->query('SELECT COUNT(id) FROM articles WHERE id_categorie = "$categorie" LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
-    } else {
-      $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
-    }
-    $offset = (int)((!isset($_GET["start"])) ? 0 : $_GET["start"]);
-
-    # Condition empêchant que l'offset soit négatif
-    if ($offset < 0){
-      $offset = 0;
-    };
-
-
-
-    # Affichage des catégories
-    ?>
-
-<div class="articles_categorie">
-
-    <?php   $reponse = $bdd->query('SELECT * FROM categories');
-       while ($donnees = $reponse->fetch())
-       {
-       ?>
-
-       <a href="articles.php?categorie=<?php echo $donnees['id'];
-           ?>" class="categorie"> <?php  echo $donnees['nom']; }?> </a>
-         </div>
-
-<div class="articles">
-
-    <?php
-    if (isset($_GET['categorie'])){
+      # Permet de sélectionner les catégories existant dans la bdd
+      if(isset($_GET["categorie"])) {
         $categorie = $_GET["categorie"];
+        $count = (int)$bdd->query('SELECT COUNT(id) FROM articles WHERE id_categorie = "$categorie" LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
+      } else {
+        $count = (int)$bdd->query('SELECT COUNT(id) FROM articles LIMIT 5')->fetch(PDO::FETCH_NUM)[0];
+      }
+      $offset = (int)((!isset($_GET["start"])) ? 0 : $_GET["start"]);
 
-        // On récupère les 5 derniers articles
-        $req = $bdd->query("SELECT articles.id, article, date, titre
-                    FROM articles
-                    WHERE id_categorie = $categorie
-                    ORDER BY date DESC LIMIT 5 OFFSET $offset");
+      # Condition empêchant que l'offset soit négatif
+      if ($offset < 0){
+        $offset = 0;
+      };
 
-        # $donnees est un array renvoyé par fetch, qui organise les champs de $req
-        while ($donnees = $req->fetch()){
+      ?>
+      <main>
+        <div class="articles_categorie">
+          <h2> Filtrer par catégorie </h2>
+          <?php
+          # Affichage des catégories
+          $reponse = $bdd->query('SELECT * FROM categories');
+          while ($donnees = $reponse->fetch())
+          {
           ?>
-            <div class="card_articles">
+          <a href="articles.php?categorie=<?php echo $donnees['id'];
+          ?>" class="link_categorie"> <?php  echo " ". $donnees['nom']; }?> </a>
+        </div>
 
-              <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
-                <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
-                <h5>le <?php echo $donnees['date']; ?></h5>
+        <div class="articles">
+          <?php
+          if (isset($_GET['categorie'])){
+            $categorie = $_GET["categorie"];
 
-              <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
+            // On récupère les 5 derniers articles
+            $req = $bdd->query("SELECT articles.id, article, date, titre
+                        FROM articles
+                        WHERE id_categorie = $categorie
+                        ORDER BY date DESC LIMIT 5 OFFSET $offset");
+
+            # $donnees est un array renvoyé par fetch, qui organise les champs de $req
+            while ($donnees = $req->fetch()){
+            ?>
+            <div style="max-width: 18rem;">
+              <div class="card_articles">
+                <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
+                <h5> le <?php echo $donnees['date']; ?></h5>
+                <p class="p_articles"><?php echo htmlspecialchars($donnees['article']); ?> </p>
+
+
+                <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>"> Voir l'article</a></em>
+              </div>
             </div>
-          </div>
 
           <?php
-        }
+          }
+          # Si aucune des conditions n'est remplie, afficher les 5 derniers articles
+          }else{
+            $req = $bdd->query("SELECT articles.id, article, date, titre
+                        FROM articles
+                        ORDER BY date DESC LIMIT 5 OFFSET $offset");
 
-        # Si aucune des conditions n'est remplie, afficher les 5 derniers articles
-    }else{
+            # $donnees est un array renvoyé par fetch, qui organise les champs de $req
+            while ($donnees = $req->fetch()){
+              ?>
 
-      // On récupère les 5 derniers articles
-      $req = $bdd->query("SELECT articles.id, article, date, titre
-                  FROM articles
-                  ORDER BY date DESC LIMIT 5 OFFSET $offset");
+              <div style="max-width: 18rem;">
+                <div class="card_articles">
 
-      # $donnees est un array renvoyé par fetch, qui organise les champs de $req
-      while ($donnees = $req->fetch()){
-        ?>
-        <div style="max-width: 18rem;">
-          <div class="card_articles">
+                  <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
+                  <h5>le <?php echo $donnees['date']; ?></h5>
+                  <p class="p_articles">  <?php echo htmlspecialchars($donnees['article']); ?> </p>
+                  <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>">Voir l'article</a></em>
 
-            <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
-              <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
-              <h5>le <?php echo $donnees['date']; ?></h5>
-
-            <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
-          </div>
+                </div>
+              </div>
+            <?php
+            }
+          };?>
         </div>
-        <?php
-      }
-    };?>
 
-    <?php # Liens "Page précédente" et "Page suivante" ?>
-    <div class = "d-flex justify-content-between ">
-      <?php # Page précédente
-      if($offset > 1){
-        if(isset($_GET["categorie"])) { ?>
-          <a href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
-        <?php } else { ?>
-          <a href="articles.php?start=<?php echo $offset - 5 ?>" class="btn btn-primary">&laquo; Page précédente </a>
-        <?php }
-    }; # Page suivante
-      if($offset + 5 < $count){
-        if(isset($_GET["categorie"])) { ?>
-          <a href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
-        <?php } else { ?>
-          <a href="articles.php?start=<?php echo $offset + 5 ?>" class="btn btn-primary"> Page suivante &raquo;</a>
-        <?php } ?>    </div>
+      <?php # Liens "Page précédente" et "Page suivante" ?>
+      <div class="previous_next">
+        <?php # Page précédente
+        if($offset > 1){
+          if(isset($_GET["categorie"])) { ?>
+            <a class="articles_boutons" href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset - 5 ?>">&laquo; Page précédente </a>
+            <?php } else { ?>
+            <a class="articles_boutons" href="articles.php?start=<?php echo $offset - 5 ?>">&laquo; Page précédente </a>
+            <?php
+          }
+        };
+        # Page suivante
+        if($offset + 5 < $count){
+          if(isset($_GET["categorie"])) { ?>
+            <a class= "articles_boutons" href="articles.php?categorie=<?php echo $_GET["categorie"]; ?>&start=<?php echo $offset + 5 ?>"> Page suivante &raquo;</a>
+            <?php
+          }else{ ?>
+            <a class="articles_boutons" href="articles.php?start=<?php echo $offset + 5 ?>"> Page suivante &raquo;</a>
+          <?php
+          } ?>
+      </div>
+      <?php
+      ;}
+      // Termine la boucle des articles
+      $req->closeCursor();
+      ?>
+    </main>
 
-    <?php
-    ;}
-    // Termine la boucle des articles
-    $req->closeCursor();
-    ?>
-
-
-    <?php include("footer.php");
-     ?>
-
+    <?php include("includes/footer.php"); ?>
   </body>
 </html>
