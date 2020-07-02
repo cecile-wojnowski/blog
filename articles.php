@@ -82,7 +82,7 @@ if(isset($_GET["categorie"])) {
       ?>
       <main>
         <div class="articles_categorie">
-          <h2> Filtrer par catégorie : </h2>
+          <h2> Filtrer par catégorie </h2>
           <?php
           # Affichage des catégories
           $reponse = $bdd->query('SELECT * FROM categories');
@@ -113,7 +113,7 @@ if(isset($_GET["categorie"])) {
                 <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
                 <h5> le <?php echo $donnees['date']; ?></h5>
 
-                <em><a href="article.php?id=<?php echo $donnees['id']; ?>">voir l'article</a></em>
+                <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>"> Voir l'article</a></em>
               </div>
             </div>
 

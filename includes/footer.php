@@ -73,7 +73,7 @@
                   </div>
 
                   <div class="liste_categories">
-                    <h4> Catégories : </h4>
+                    <strong> Catégories : </strong>
                     <?php   $reponse = $bdd->query('SELECT * FROM categories');
                     while ($donnees = $reponse->fetch())
                     {
