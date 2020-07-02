@@ -58,9 +58,9 @@ try {
      // On affiche chaque entrée une à une
      while ($donnees = $reponse->fetch()) {
          ?>
-         <strong>catégorie</strong> : <?php echo"<option>". $donnees['nom']."</option>";
-     }
-         ?><br />
+         <strong>catégorie</strong> : <?php echo"<option value = '". $donnees["id"]."'>". $donnees['nom']."</option>";
+     } ?>
+         <br />
 
    </select>
 
@@ -69,13 +69,16 @@ try {
   <?php if (isset($_POST['poster_article'])) {
              $titre=$_POST['titre'];
              $article=$_POST['article'];
+             $article = str_replace("'", "\'", $article); # Permet l'affichage des guillemets
              $id_utilisateur=$_SESSION['id'];
              $id_categorie=$_POST['categorie'];
 
-             $sql= "INSERT INTO `articles`( `article`, `id_utilisateur`, `id_categorie`, `date`, `titre`) VALUES ('$article','$id_utilisateur','$id_categorie',NOW(),'$titre')";
+             $sql= "INSERT INTO `articles`( `article`, `id_utilisateur`, `id_categorie`, `date`, `titre`)
+             VALUES ('$article',$id_utilisateur, $id_categorie,NOW(),'$titre')";
+             echo $sql;
 
              $resultat = mysqli_query($mysqli, $sql);
-
+             echo $_POST['categorie'];
              echo "l'article a été posté.";
          }
 
