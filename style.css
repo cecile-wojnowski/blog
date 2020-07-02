@@ -428,8 +428,11 @@ padding: 2%;
   flex-direction: row;
   align-content: flex-end;
   color:black;
+  margin:5%;
 }
-
+.p_articles{
+  text-align: justify;
+}
 .articles h2 {
   color:  #DB5461
 }

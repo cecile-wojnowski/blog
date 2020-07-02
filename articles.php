@@ -110,8 +110,9 @@ if(isset($_GET["categorie"])) {
             <div style="max-width: 18rem;">
               <div class="card_articles">
                 <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
-                <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
                 <h5> le <?php echo $donnees['date']; ?></h5>
+                <p class="p_articles"><?php echo htmlspecialchars($donnees['article']); ?> </p>
+
 
                 <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>"> Voir l'article</a></em>
               </div>
@@ -133,8 +134,8 @@ if(isset($_GET["categorie"])) {
                 <div class="card_articles">
 
                   <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
-                  <p>  <?php echo htmlspecialchars($donnees['article']); ?> </p>
                   <h5>le <?php echo $donnees['date']; ?></h5>
+                  <p class="p_articles">  <?php echo htmlspecialchars($donnees['article']); ?> </p>
                   <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>">Voir l'article</a></em>
 
                 </div>
