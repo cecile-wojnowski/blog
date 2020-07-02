@@ -28,7 +28,7 @@ if($nombre_resultats == 0) {
     <head>
       <meta charset="utf-8" />
       <title>Mon blog</title>
-    	<link href="style.css" rel="stylesheet" />
+    	<link href="css/style.css" rel="stylesheet" />
       <link rel="stylesheet" href="form.css">
       <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@ if($nombre_resultats == 0) {
     </header>
 
     <body>
-      <p><a href="articles.php">Retour à la liste des articles</a></p>
+      <p><a class="link_voir_article" href="articles.php">Retour à la liste des articles</a></p>
       <div class="article">
         <h2> Article sélectionné </h2>
         <?php
@@ -53,14 +53,12 @@ if($nombre_resultats == 0) {
           while ($donnees = $req->fetch())
           {
           ?>
-          <div style="max-width: 70rem;">
-            <div class="card_articles">
+            <div class="card_article">
               <h2><?php echo htmlspecialchars($donnees['titre']); ?></h2>
                 écrit par <?php echo htmlspecialchars($donnees['login']);?>
                 le <?php echo $donnees['date']; ?><br>
               <?php echo htmlspecialchars($donnees['article']); ?></p>
             </div>
-          </div>
           <?php
           } // Fin de la boucle des articles
           $req->closeCursor();
@@ -76,9 +74,11 @@ if($nombre_resultats == 0) {
         while ($donnees = $req->fetch())
         {
         ?>
-          <p> <?php echo htmlspecialchars($donnees['login']); ?>
-            le <?php echo $donnees['date']; ?><br>
-          <?php echo htmlspecialchars($donnees['commentaire']); ?></p>
+            <div class="card_commentaire">
+              <h4> Posté par <?php echo htmlspecialchars($donnees['login']); ?>,
+                le <?php echo $donnees['date']; ?></h4><br>
+              <p class="commentaire"><?php echo htmlspecialchars($donnees['commentaire']); ?></p>
+            </div>
 
         <?php
         } // Fin de la boucle des commentaires

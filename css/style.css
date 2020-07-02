@@ -417,8 +417,8 @@ tr {
 .articles_categorie
 {
   text-align:center;
-margin: 2%;
-padding: 2%;
+  margin: 2%;
+  padding: 2%;
 }
 
 .articles {
@@ -481,6 +481,23 @@ padding: 2%;
 /****************/
 .article{
   text-align: center;
+}
+.card_article {
+  background-color: #FAFAFA;
+  padding: 10%;
+  margin: 5%;
+  text-align: justify;
+}
+.card_commentaire{
+  background-color: #FAFAFA;
+  padding: 5px;
+  margin: 2% 5% 2% 5%;
+  text-align: left;
+  border-radius:10px;
+  border: 1px solid lightgrey;
+}
+.commentaire{
+  color: grey;
 }
 /******************/
 /*** footer*******/
