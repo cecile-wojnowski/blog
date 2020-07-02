@@ -52,13 +52,12 @@ try {
   <textarea  id="article" name="article"placeholder="écrivez ici..."></textarea>
 
   <label for="">catégorie</label>
-<select>
+<select name="categorie">
   <?php   $reponse = $bdd->query('SELECT * FROM categories');
 
      // On affiche chaque entrée une à une
      while ($donnees = $reponse->fetch()) {
          ?>
-         <p>
          <strong>catégorie</strong> : <?php echo"<option>". $donnees['nom']."</option>";
      }
          ?><br />
