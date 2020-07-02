@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="form.css">
-    <link href="https://fonts.googleapis.com/css2?family=Scada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <title>Connexion</title>
 </head>
@@ -25,6 +25,10 @@
   <?php include("header.php"); ?>
 
 </header>
+<center>
+  <div class="container_connexion">
+
+
 <div class="content-connexion">
 
     <main>
@@ -33,40 +37,32 @@
             if (isset($_SESSION['login']) == false) {
                 $bdd = mysqli_connect("localhost", "root", "", "blog"); ?>
         <div class="container">
-
-                <form action="connexion.php" method="POST">
+<center>
+                <form action="" method="POST" >
                     <p>
 <div class="row">
 
-                      <div class="style_label">
 
                         <label for="login">Login</label>
-                      </div>
-<div class="style_input">
-  <input type="text" name="login" id="login" required>
+  <input type="text" name="login" id="login" required><br />
 
-</div>
 </div>
 
 <div class="row">
-  <div class="style_label">
 
   <label for="password">Mot de Passe</label>
-</div>
 
-<div class="style_input">
   <input type="password" name="password" id="password" required>
 
-</div>
 
 </div>
-<div class="row">
   <button type="submit" name="connexion" class="bouton">Connexion</button>
 </div>
                     </p>
-                  </div>
 
                 </form>
+                </div>
+              </center>
 
         <?php
                 if (isset($_POST['connexion'])) {
@@ -84,6 +80,7 @@
                             session_start();
                             $_SESSION['login'] = $infos[0]['login'];
                             $_SESSION['id'] = $infos[0]['id'];
+                            $_SESSION['email'] = $infos[0]['email'];
                             $_SESSION['id_droits'] = $infos[0]['id_droits'];
                             $_SESSION['password'] = $infos[0]['password'];
                             header('location:profil.php');
@@ -105,6 +102,9 @@
         </p>
     </main>
   </div>
+</center>
+  <?php include("footer.php");
+   ?>
 
 </body>
 </html>

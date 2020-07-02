@@ -22,15 +22,19 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs articles');
 <body>
 	<div class="container_admin">
 
-	<?php if (isset($_SESSION['login'])){ ?>
+	<?php if (isset($_SESSION['login'])) { ?>
 
 <div class="options">
 
+<div class="admin">
+
 	<h1> ADMIN</h1>
 	<p>Vous êtes sur la page admin vous avez plusieurs possibilités :</p>
-<div>
-	<h3> <a href="admin.php?utilisateurs"> Utilisateurs </a></h3>
+
 </div>
+
+
+	<h3> <a href="admin.php?utilisateurs"> Utilisateurs </a></h3>
 <?php
 
 
@@ -141,13 +145,20 @@ if (isset($_GET['new_compte'])) {
 
 
 if (isset($_GET['modifier_compte'])) {
+    $pdoselect = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = :id');
+
+    $pdoselect ->bindValue(':id', $_GET['modifier_compte'], PDO::PARAM_INT);
+
+    $executepdo= $pdoselect->execute();
+
+    $info= $pdoselect->fetch();
+
     if (isset($_POST['modifier'])) {
         $login2= $_POST['login'];
         $password2= $_POST['password'];
         $email2=$_POST['email'];
         $id_droits2=$_POST['id_droits'];
         $id= $_GET['modifier_compte'];
-
         $req = $bdd->prepare('UPDATE utilisateurs SET login = :login, password = :password, email = :email, id_droits = :id_droits WHERE id = :id');
         $req->execute(array(
     'login' => $login2,
@@ -157,24 +168,10 @@ if (isset($_GET['modifier_compte'])) {
     'id' => $id
     ));
 
-
         if ($req) {
             echo 'Modification enregistrée';
-            $delai = 1;
-            $url = 'admin.php?utilisateur';
-            header("Refresh: $delai;url=$url");
+            header("location: admin.php?utilisateurs");
         }
-    } else {
-
-        // requête pour pré-remplir le formulaire de modification
-
-        $pdoselect = $bdd->prepare('SELECT * FROM utilisateurs WHERE id= :id');
-
-        $pdoselect ->bindValue(':id', $_GET['modifier_compte'], PDO::PARAM_INT);
-
-        $executepdo= $pdoselect->execute();
-
-        $info= $pdoselect->fetch();
     } ?>
 
 
@@ -324,7 +321,7 @@ if (isset($_GET['categorie'])) {
 <label for="">Nom de la catégorie</label>
 <input type="text" name="nom_categorie" value="">
 <label for="">Numéro de la catégorie</label>
-<input type="text" name="id" value="insérer un nombre">
+<input type="number" name="id" value="insérer le numéro de la catégorie" max="50" min="1">
 <input type="submit" name="creer" value="créer">
 </form>
 
@@ -332,6 +329,14 @@ if (isset($_GET['categorie'])) {
 }
 
                 if (isset($_GET['modifier_article'])) {
+                    $pdoselect2 = $bdd->prepare('SELECT * FROM articles WHERE id= :id');
+
+                    $pdoselect2 ->bindValue(':id', $_GET['modifier_article'], PDO::PARAM_INT);
+
+                    $executepdo2= $pdoselect2->execute();
+
+                    $info2= $pdoselect2->fetch();
+
                     if (isset($_POST['modifier'])) {
                         $titre2= $_POST['titre'];
                         $article2= $_POST['article'];
@@ -351,22 +356,15 @@ if (isset($_GET['categorie'])) {
 
                         if ($req2) {
                             echo 'Modification enregistrée';
-                            $delai = 11;
-                            $url = 'admin.php?articles';
-                            header("Refresh: $delai;url=$url");
+
+                            header("location: admin.php?articles");
                         }
-                    } else {
+                    }
 
-                        // requête pour pré-remplir le formulaire de modification
+                    // requête pour pré-remplir le formulaire de modification
 
-                        $pdoselect2 = $bdd->prepare('SELECT * FROM articles WHERE id= :id');
 
-                        $pdoselect2 ->bindValue(':id', $_GET['modifier_article'], PDO::PARAM_INT);
-
-                        $executepdo2= $pdoselect2->execute();
-
-                        $info2= $pdoselect2->fetch();
-                    } ?>
+                     ?>
 
 										<form name="modification_article" action="" method="POST">
 										<table border="0" align="center" cellspacing="2" cellpadding="2">
@@ -484,9 +482,8 @@ if (isset($_GET['categorie'])) {
 
                         if ($req3) {
                             echo 'Modification enregistrée';
-                            $delai = 11;
-                            $url = 'admin.php?commentaires';
-                            header("Refresh: $delai;url=$url");
+                            
+                            header("location: admin.php?commentaires");
                         }
                     } else {
 
@@ -541,18 +538,17 @@ if (isset($_GET['categorie'])) {
             }
         }
     }
-	}
-	else {
-
-		echo "<br /><center> Bien essayé, mais vous ne pouvez pas accéder à cette page !"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>";
-?>
+    } else {
+        echo "<br /><center> Bien essayé, mais vous ne pouvez pas accéder à cette page !"."<a href='connexion.php'> me connecter</a> ou alors <a href='inscription.php'> m'inscrire </a></center>"; ?>
 
 <img src="philo5.gif" alt="">
 
-<?php	}
-        ?>
+<?php
+    }
+      ?>
 </div>
 			</div>
+			<?php include('footer.php');  ?>
 
 
 </body>

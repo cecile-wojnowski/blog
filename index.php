@@ -19,7 +19,12 @@
 
 <div class="row">
 <div class="leftcolumn">
+<div class="card">
 
+  <h1>Nos derniers articles</h1>
+
+
+</div>
 <?php
 // Connexion à la base de données blog
 try {
@@ -62,68 +67,79 @@ $req->closeCursor();
      <div class="card_img">
 
      <div class="container">
-       <img src="portrait1.jpeg" alt="">
+       <img src="img/portrait1.jpeg" alt="">
        <div class="overlay">
          <div class="text">Aïcha chercheuse</div>
        </div>
      </div>
 
      <div class="container">
-       <img src="portrait2.jpeg" alt="">
+       <img src="img/portrait2.jpeg" alt="">
        <div class="overlay">
          <div class="text">Nengah doctorante</div>
        </div>
      </div>
 
      <div class="container">
-       <img src="portrait3.jpeg" alt="">
+       <img src="img/portrait3.jpeg" alt="">
        <div class="overlay">
          <div class="text">Ruth étudiante</div>
        </div>
      </div>
 
           <div class="container">
-            <img src="portrait4.jpeg" alt="">
+            <img src="img/portrait4.jpeg" alt="">
             <div class="overlay">
               <div class="text">Salomée maître de conférence</div>
             </div>
           </div>
         </div>
-
-   </div>
-
-
-   <div class="card">
-     <h3> Site amis </h3>
-<a href="http://www.philagora.net/">Philagora</a>
-<a href="https://la-philosophie.com/">La philo.com</a>
-<a href="https://www.philolog.fr/">Philolog</a>
    </div>
    <div class="card">
-     <h3>Catégories du site</h3>
-     <?php   $reponse = $bdd->query('SELECT * FROM categories');
-        while ($donnees = $reponse->fetch()) {
-            ?>
-            <a href="">
-        <?php echo $donnees['nom'];
-        }
-            ?><a/>
+     <h3>Que faisons nous ?</h3>
+   <p> Qu'est ce que la philo ? Est ce vraiment réservé à certaines personnes où cela touche t il tout le monde
+   dans notre société ? Pour répondre à ces questions et démystifier la philosophie, qui donne du sens à notre existence, nous
+   avons mis en place ce blog.
+   </p>
 
    </div>
-   <div class="card_network">
-     <h3>Suivez nous </h3>
+<div class="card">
+<p>
 
-<a href="https://www.instagram.com/?hl=fr"><img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png"/>
-</a>
-<a href="https://www.reddit.com/"><img src="https://img.icons8.com/ios-filled/50/000000/reddit.png"/>
-</a>
-<a href="https://fr-fr.facebook.com/"><img src="https://img.icons8.com/metro/52/000000/facebook.png"/>
-</a>
-   </div>
- </div>
-
+  <div class="mail"><p>
+Vous voulez contribuer au blog ?
+  <a href="mailto:blogphilo@caramail.fr" target="_blank"><span>Envoyez nous un mail
+</span></a></p>
+</div>
 
 </div>
 
+   <div class=" liens">
+     <p> Site amis </p>
+<a href="http://www.philagora.net/" target="_blank">Philagora</a>
+<a href="https://la-philosophie.com/" target="_blank">La philo.com</a>
+<a href="https://www.philolog.fr/" target="_blank">Philolog</a>
+   </div>
+
+
+
+   <div class="card_network">
+     <h3>Nous sommes sur les réseaux</h3>
+<center><a href="https://www.instagram.com/?hl=fr" target="_blank"><img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png"/>
+</a>
+<a href="https://www.reddit.com/" target="_blank"><img src="https://img.icons8.com/ios-filled/50/000000/reddit.png"/>
+</a>
+<a href="https://fr-fr.facebook.com/" target="_blank"><img src="https://img.icons8.com/metro/52/000000/facebook.png"/>
+</a>
+</center>   </div>
+
+
+ </div>
+
+
+
+</div>
+<?php include("footer.php");
+ ?>
     </body>
 </html>
