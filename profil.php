@@ -93,7 +93,6 @@ if (mysqli_connect_errno()) {
             </div>
 
        	  <button type="submit"> Modifier le profil </button>
-          <button type="button" name="supprimer" class="supprimer">Supprimer le compte</button>
         </form>
       </div>
     </main>
