@@ -63,8 +63,9 @@ try {
          <br />
 
    </select>
-
-  <button type="submit" name="poster_article"> Poster le nouvel article  </button>
+   <div class="row">
+     <button type="submit" name="poster_article"> Poster le nouvel article  </button>
+   </div>
 
   <?php if (isset($_POST['poster_article'])) {
              $titre=$_POST['titre'];
