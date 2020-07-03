@@ -50,12 +50,10 @@ textarea {
 button {
   background-color: #DB5461;
   color: white;
-  padding: 1%;
   border: none;
   cursor: pointer;
   width: 100%;
   opacity: 0.8;
-  width: 50%;
 }
 
 button:hover {
