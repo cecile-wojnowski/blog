@@ -43,8 +43,8 @@ $resultat= mysqli_fetch_all($query, MYSQLI_ASSOC);
 
              $new_password =  password_hash($_POST['password'], PASSWORD_BCRYPT);
              $ancien_password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-             $new_email = $_SESSION['email'];
-
+             $ancien_email = $_SESSION['email'];
+             $new_email = $_POST['email'];
 
              $sql= "UPDATE utilisateurs SET login = '$new_login', password = '$new_password', email= '$new_email'
            WHERE login = '$ancien_login' AND password = '$ancien_password'";
@@ -65,7 +65,7 @@ $resultat= mysqli_fetch_all($query, MYSQLI_ASSOC);
                   $_SESSION['login'] = $_POST['login'];
               } else {
                   echo $_SESSION["login"];
-              } ?> " required>
+              } ?>" required>
       		</div>
 
 
