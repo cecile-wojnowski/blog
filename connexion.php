@@ -88,13 +88,13 @@
                     # Si le mdp est vérifié, on ouvre une session...
                     if (password_verify($mdp, $mdpbdd))
                     {
-                      session_start();
-                      # Et on stocke les données du tableau dans des variables de session
-                      $_SESSION['login'] = $infos[0]['login'];
-                      $_SESSION['id'] = $infos[0]['id'];
-                      $_SESSION['id_droits'] = $infos[0]['id_droits'];
-                      $_SESSION['password'] = $infos[0]['password'];
-                      header('location:profil.php');
+                     session_start();
+                            $_SESSION['login'] = $infos[0]['login'];
+                            $_SESSION['id'] = $infos[0]['id'];
+                            $_SESSION['email'] = $infos[0]['email'];
+                            $_SESSION['id_droits'] = $infos[0]['id_droits'];
+                            $_SESSION['password'] = $infos[0]['password'];
+                            header('location:profil.php');
                     }else{
                       # Si le mdp n'est pas vérifié, on affiche ce message :
                       $message = 'Mot de passe non reconnu.';
