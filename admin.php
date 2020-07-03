@@ -436,7 +436,7 @@ if (isset($_GET['categorie'])) {
 	}
 
 
-	if (isset($_GET['modifier_commmentaire'])) {
+	if (isset($_GET['modifier_commentaire'])) {
 			$pdoselect_commentaire = $bdd->prepare('SELECT * FROM commentaires WHERE id = :id');
 
 			$pdoselect_commentaire ->bindValue(':id', $_GET['modifier_commentaire'], PDO::PARAM_INT);
@@ -446,7 +446,7 @@ if (isset($_GET['categorie'])) {
 			$info_commentaire= $pdoselect_commentaire->fetch();
 
 			if (isset($_POST['modification_commentaire'])) {
-					$commentaire_commentaire= $_POST['commentaire'];
+					$commentaire= $_POST['commentaire'];
 					$id_commentaire= $_GET['modifier_commentaire'];
 					$req_commentaire = $bdd->prepare('UPDATE commentaires SET commentaire = :commentaire WHERE id = :id');
 					$req_commentaire->execute(array(
@@ -456,15 +456,15 @@ if (isset($_GET['categorie'])) {
 
 		if ($req_commentaire) {
 				echo 'Modification enregistrée';
-				header("location: admin.php?commentaires");
+				header('location: admin.php?commentaires');
 		}
 } ?>
 
-	<form name="modifier_commentaire" action="" method="POST">
+	<form name="modification_commentaire" action="" method="POST">
 		<table border="0" align="center" cellspacing="2" cellpadding="2">
 			<tr align="center">
 			<td>Commentaire</td>
-				<td><input type="text" name="login" value="<?php echo $info_commentaire['commentaire']; ?>"></td>
+				<td><input type="text" name="commentaire" value="<?php echo $info_commentaire['commentaire']; ?>"></td>
 			</tr>
 			<tr align="center">
 			<td><input name="modification_commentaire" type="submit" value="modifier"></td>
@@ -473,6 +473,7 @@ if (isset($_GET['categorie'])) {
 	</form>
 
 <?php
+
 }
 ?>
 
