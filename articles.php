@@ -107,7 +107,6 @@ if(isset($_GET["categorie"])) {
             # $donnees est un array renvoyé par fetch, qui organise les champs de $req
             while ($donnees = $req->fetch()){
             ?>
-            <div style="max-width: 18rem;">
               <div class="card_articles">
                 <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
                 <h5> le <?php echo $donnees['date']; ?></h5>
@@ -116,7 +115,7 @@ if(isset($_GET["categorie"])) {
 
                 <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>"> Voir l'article</a></em>
               </div>
-            </div>
+
 
           <?php
           }
@@ -130,7 +129,7 @@ if(isset($_GET["categorie"])) {
             while ($donnees = $req->fetch()){
               ?>
 
-              <div style="max-width: 18rem;">
+
                 <div class="card_articles">
 
                   <h2>  <?php echo htmlspecialchars($donnees['titre']); ?> </h2>
@@ -139,7 +138,7 @@ if(isset($_GET["categorie"])) {
                   <em><a class="link_voir_article" href="article.php?id=<?php echo $donnees['id']; ?>">Voir l'article</a></em>
 
                 </div>
-              </div>
+  
             <?php
             }
           };?>
