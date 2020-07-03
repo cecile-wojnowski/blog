@@ -53,7 +53,7 @@
                 ?> '<div class="navbar"> <a href="index.php"><center>Accueil</center></a>
 <a href="profil.php">  Votre profil    <i><?php $_SESSION['login']?></i></a><a href="creer-article.php"> écrire un article </a>
 
-<a href="articles.php"> les articles  </a> <div class="dropdown">
+<a href="articles.php"> Articles  </a> <div class="dropdown">
   <button class="dropbtn">Catégories d'articles
   </button>
   <div class="dropdown-content">
@@ -69,11 +69,10 @@
 <?php    } elseif ($_SESSION['id_droits']== 1337) { ?>
                 <div class="navbar"> <a href="index.php"><center>Accueil</center></a>
 <a href="profil.php">  Votre profil    <i><?php $_SESSION['login'] ?></i></a>
-<a href="creer-article.php"> écrire un article </a>
-<a href="admin.php"> espace admin </a>
-<a href="articles.php"> les articles  </a><div class="dropdown">
-  <button class="dropbtn">Catégories d'articles
-  </button>
+<a href="creer-article.php"> Ecrire un article </a>
+<a href="admin.php"> Espace admin </a>
+<a href="articles.php"> Articles  </a><div class="dropdown">
+  <button class="dropbtn">Catégories d'articles</button>
   <div class="dropdown-content">
     <?php   $reponse = $bdd->query('SELECT * FROM categories');
     while ($donnees = $reponse->fetch())
@@ -87,14 +86,13 @@
 <?php  }
         } else { ?>
   <div class="navbar">
-  <a href="index.php">accueil</a>
-  <a href="inscription.php">inscription</a>
-  <a href="connexion.php">connexion</a>
+  <a href="index.php"> Accueil</a>
+  <a href="inscription.php"> Inscription</a>
+  <a href="connexion.php"> Connexion</a>
 
 <a href="articles.php">Voir les articles</a>
 <div class="dropdown">
-  <button class="dropbtn">Catégories d'articles
-  </button>
+  <button class="dropbtn">Catégories d'articles</button>
   <div class="dropdown-content">
     <?php   $reponse = $bdd->query('SELECT * FROM categories');
     while ($donnees = $reponse->fetch())
