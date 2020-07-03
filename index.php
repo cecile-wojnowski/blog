@@ -85,9 +85,9 @@
            </div>
            <div class="card">
              <h3>Que faisons nous ?</h3>
-             <p> Qu'est ce que la philo ? Est ce vraiment réservé à certaines personnes où cela touche t il tout le monde
-               dans notre société ? Pour répondre à ces questions et démystifier la philosophie, qui donne du sens à notre existence, nous
-               avons mis en place ce blog. </p>
+             <p> Bienvenue sur ce blog d'initiation à la philosophie. Nous proposons ici de courts billets
+                sur des notions de base en philosophie. Vous y découvrirez notamment des distinctions conceptuelles,
+                une présentation simple de la pensée d'auteurs et des outils argumentatifs.</p>
             </div>
 
             <div class="card">
@@ -100,7 +100,7 @@
             </div>
 
             <div class=" liens">
-              <p> Site amis </p>
+              <p> Sites amis </p>
               <a href="http://www.philagora.net/" target="_blank">Philagora</a>
               <a href="https://la-philosophie.com/" target="_blank">La philo.com</a>
               <a href="https://www.philolog.fr/" target="_blank">Philolog</a>

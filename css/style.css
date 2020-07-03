@@ -45,12 +45,14 @@ h1 {
   overflow: hidden;
   background-color: #DB5461;
   width: 100%;
+  display:flex;
+  justify-content: space-around;
 }
 
 /* Liens dans la navbar */
 .navbar a {
   float: left;
-  font-size: 150%;
+  font-size: 18px;
   color: white;
   text-align: center;
   padding: 14px 16px;
@@ -65,7 +67,7 @@ h1 {
 
 /* Bouton partie dorpdown */
 .dropdown .dropbtn {
-  font-size: 150%;
+  font-size: 18px;
   border: none;
   outline: none;
   color: white;
@@ -290,6 +292,7 @@ text-decoration: none;
 padding: 1%;
 margin: 1%;
 border-radius: 10px;
+font-size:16px;
 }
 
 .liens a:hover {
@@ -306,6 +309,7 @@ border-radius: 10px;
   background-color: #FAFAFA;
   padding: 10px;
   margin: 10px;
+  text-align: justify;
 }
 
 .card_network {
@@ -378,10 +382,7 @@ border-radius: 10px;
 /****************/
 
 h3 {
-
-font-size: 200%;
 text-align: center;
-
 }
 
 .admin {
