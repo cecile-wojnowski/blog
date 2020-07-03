@@ -357,20 +357,9 @@ border-radius: 10px;
   }
 }
 
-.btn-group2 .button {
-  background-color: blue;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  float: left;
-}
-
-.btn-group2 .button:hover {
-  background-color: #3e8e41;
+button{
+  margin-left: 1%;
+  margin-top: 1%;
 }
 
 /******************/
@@ -382,6 +371,20 @@ h3 {
 font-size: 200%;
 text-align: center;
 
+}
+
+.ajouter {
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+  padding: 1%;
+  width: 25%;
+}
+
+
+
+.ajouter label {
+  font-weight: bold;
 }
 
 .admin {
