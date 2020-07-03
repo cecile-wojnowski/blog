@@ -53,6 +53,7 @@ if(isset($_POST["login"])) {
       <?php  include('includes/header.php') ?>
       <main>
         <h1> Créer un compte </h1>
+        <center>
         <div class="container">
 
         <form action="inscription.php" method="POST" name="inscription">
@@ -82,7 +83,7 @@ if(isset($_POST["login"])) {
           </div>
 
           <div>
-        	  <label for="password"> Confirmez votre mot de passe:</label><br/>
+        	  <label for="password"> Confirmez  mot de passe:</label><br/>
             <input type="password" name="confirm_password" required>
     	    </div>
 
@@ -94,7 +95,7 @@ if(isset($_POST["login"])) {
     	    <button type="submit"> Envoyer </button>
         </div>
         </div>
-   	    </form>
+      </form></center>
         <?php  include('includes/footer.php') ?>
       </main>
     </body>
