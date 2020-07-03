@@ -1,6 +1,6 @@
 <?php
 
-$mysqli = mysqli_connect("127.0.0.1", "root", "", "blog"); # Connexion à la base de données
+$mysqli =mysqli_connect("127.0.0.1", "root", "", "blog"); # Connexion à la base de données
 $mysqli->set_charset("utf8"); # Permet d'afficher les accents
 
 ?>
@@ -41,30 +41,20 @@ $resultat= mysqli_fetch_all($query, MYSQLI_ASSOC);
              $new_login = $_POST['login'];
              $ancien_login = $_SESSION['login'];
 
-             $new_password = $_POST['password'];
-             $ancien_password = $_SESSION['password'];
+             $new_password =  password_hash($_POST['password'], PASSWORD_BCRYPT);
+             $ancien_password = password_hash($_POST['password'], PASSWORD_BCRYPT);
              $new_email = $_SESSION['email'];
+
 
              $sql= "UPDATE utilisateurs SET login = '$new_login', password = '$new_password', email= '$new_email'
            WHERE login = '$ancien_login' AND password = '$ancien_password'";
 
              $resultat2 = mysqli_query($mysqli, $sql);
              echo "Vos données ont été modifiées.";
+
+             var_dump($mysqli);
          }
-              if (isset($_GET['supprimer'])) {
-                  if ($_GET['supprimer']!="ok") {
-                      echo "<p>Tu es sûr de vouloir supprimer ce compte définitivement?</p>
-                 <br>
-                 <h2></p><a href='profil.php?supprimer=ok' style='color:red'>OUI</a> <a href='profil.php' style='color:green'>NON</a></h2>";
-                  } else {
-                      if (mysqli_query($mysqli, "DELETE FROM utilisateurs WHERE pseudo='$login'")) {
-                          echo "Ton compte vient d'être supprimé pour toujours.";
-                          unset($_SESSION['login']);
-                      } else {
-                          echo "Il y a une erreur quelque part ...";
-                      }
-                  }
-              } ?>
+               ?>
 
          <!-- Formulaire pré-rempli -->
          <form action="" method="POST" name="profil">
@@ -75,34 +65,32 @@ $resultat= mysqli_fetch_all($query, MYSQLI_ASSOC);
                   $_SESSION['login'] = $_POST['login'];
               } else {
                   echo $_SESSION["login"];
-              } ?> ">
+              } ?> " required>
       		</div>
 
+
        	  <div>
-           	<label for="password"> Mot de passe:</label><br />
+           	<label for="password"> Nouveau mot de passe</label><br />
            	<input type="password" name="password" value="<?php if (isset($_POST['password'])) {
-                  echo $_POST['password'];
-                  $_SESSION['password'] = $_POST['password'];
+                  echo password_hash($_POST['password'], PASSWORD_BCRYPT);
+                  $_SESSION['password'] = password_hash($_POST['password'], PASSWORD_BCRYPT);
               } else {
-                  echo $_SESSION["password"];
-              } ?> ">">
+                  echo $_SESSION["login"];
+              } ?> " required>
            </div>
 
            <div>
-             <label for="email"> email:</label><br />
-             <input type="email" name="email" value="<?php if (isset($_POST['email'])) {
+             <label for="email"> Email:</label><br />
+             <input required type="email" name="email" value="<?php if (isset($_POST['email'])) {
                    echo $_POST['email'];
                    $_SESSION['email'] = $_POST['email'];
                } else {
                    echo $_SESSION["email"];
                } ?> ">
             </div>
-          <div class="row">
-       	    <button type="submit"> Modification du profil </button>
-          </div>
-          <div class="row">
-            <button type="button" name="supprimer" class="supprimer">Supprimer le compte</button>
-          </div>
+
+       	  <button type="submit"> Modifier le profil </button>
+<button type="button" name="supprimer" class="supprimer">Supprimer le compte</button>
         </form>
         </div>
         </main>
