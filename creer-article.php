@@ -36,7 +36,7 @@ try {
          <h1> Ecrire un article </h1>
 
 
-         <div class="container">
+         <center><div class="container">
 
 <form class="" action="" method="post">
 
@@ -96,9 +96,9 @@ try {
 
 </div>
 </div>
+</center>
 
 </form>
-
         </main>
 
 
