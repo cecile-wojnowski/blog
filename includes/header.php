@@ -16,13 +16,13 @@
   <head>
     <meta charset="utf-8">
     <title>header</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
   </head>
   <body>
     <div class="top">
       <div class="top_text">
-        <h2> La philosophie expliquée</center> </h2>
+        <h2> <center>La philosophie expliquée</center> </h2>
       </div>
 
     </div>

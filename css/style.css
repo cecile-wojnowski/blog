@@ -28,7 +28,7 @@ h1 {
   padding: 1%;
   font-size: 250%;
   text-align: center;
-  background-image: url("img/philosophes.jpg");
+  background-image: url("../img/philosophes.jpg");
   opacity: 0.8;
 }
 .top h2 {
