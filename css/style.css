@@ -1,0 +1,585 @@
+/******************/
+/* style général */
+/****************/
+body {
+  background: #f1f1f1;
+  font-family: 'Barlow', sans-serif;
+  margin: auto;
+  padding: auto;
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/*******************/
+/* Header***********/
+/******************/
+
+h1 {
+  text-align: center;
+}
+.top {
+  padding: 1%;
+  font-size: 250%;
+  text-align: center;
+  background-image: url("img/philosophes.jpg");
+  opacity: 0.8;
+}
+.top h2 {
+  background-color: white;
+  padding: 0.5%;
+  text-align: center;
+}
+
+
+/******************/
+/* Navbar général */
+/******************/
+.navbar {
+  overflow: hidden;
+  background-color: #DB5461;
+  width: 100%;
+}
+
+/* Liens dans la navbar */
+.navbar a {
+  float: left;
+  font-size: 150%;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* La partie dropdown et son container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Bouton partie dorpdown */
+.dropdown .dropbtn {
+  font-size: 150%;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/* au hover la navbar change de couleur */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  opacity: 0.5;
+}
+
+/* Visibilité du contenu du dropdown qui était caché*/
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Liens à l'intérieur de la partie dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Abackground de couleur sur le hover de la partie dropdown */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* montrer le menu dropdown quand on hover dessus*/
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*****************************/
+/********index.php ******** */
+/***************************/
+
+
+
+.mail{
+
+}
+
+.mail a{
+  width: 400px;
+  height: 100px;
+  line-height: 40px;
+  font-size: 20px;
+  text-decoration: none;
+  border: 1px solid ;
+  text-align: center;
+  letter-spacing: 2px;
+  position: relative;
+  transition: all .35s;
+}
+
+.mail a span{
+  position: relative;
+  z-index: 2;
+}
+
+.mail a:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff003b;
+  transition: all .35s;
+}
+
+.mail a:hover{
+  color: #fff;
+}
+
+.mail a:hover:after{
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+.top_text{
+  width: 40%;
+}
+.top_slider{
+  width: 40%;
+}
+
+/*catégorie à propos, portraits et overlay
+partie droite de l'index */
+
+
+.container {
+  position: relative;
+}
+
+.image {
+  display: block;
+  height: auto;
+}
+
+/* spécificités de l'overlay*/
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #8AA29E;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+/*liens qui s'affiche au over pour accéder aux articles */
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dropdown_card {
+  position: relative;
+  display: inline-block;
+
+}
+
+.dropdown-content_card {
+  display: none;
+  position: absolute;
+  background-color: #8AA29E;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1%;
+  z-index: 1;
+}
+
+.dropdown_card:hover .dropdown-content_card {
+  display: block;
+}
+
+
+/*positionnement général du contenu index */
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*partie gauche du contenu index */
+
+
+.leftcolumn {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+/*partie droite du contenu index*/
+
+
+.rightcolumn {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+/*style des différentes boîtes de la page index */
+.liens {
+  font-size: 150%;
+  background-color: #FAFAFA;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+/* site amis */
+
+.liens a {
+color:white;
+background-color: #DB5461;
+text-decoration: none;
+padding: 1%;
+margin: 1%;
+border-radius: 10px;
+}
+
+.liens a:hover {
+color: #DB5461;
+transition:ease 2s;
+background-color: white;
+text-decoration: none;
+padding: 1%;
+margin: 1%;
+border-radius: 10px;
+}
+
+.card {
+  background-color: #FAFAFA;
+  padding: 10px;
+  margin: 10px;
+}
+
+.card_network {
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+}
+
+.card_network img {
+  width: 10%;
+  padding: 1%;
+}
+
+.card_network img:hover {
+    width: 12%;
+    transition: ease, 2s;
+}
+
+.card_img {
+  display: flex;
+}
+
+.card img {
+  margin: 2px;
+  width: 90%;
+}
+
+.card h2 {
+  color: #DB5461;
+}
+
+.card a {
+  text-decoration: none;
+  background-color: #8AA29E;
+  color: white;
+  padding: 0.5%;
+}
+
+.card a:hover {
+  color: #DB5461;
+}
+
+
+
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.btn-group2 .button {
+  background-color: blue;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-group2 .button:hover {
+  background-color: #3e8e41;
+}
+
+/******************/
+/* admin.php */
+/****************/
+
+h3 {
+
+font-size: 200%;
+text-align: center;
+
+}
+
+.admin {
+  background-color: white;
+  text-align: center;
+  margin: 1%;
+  padding: 1%;
+}
+
+.container_admin {
+  width: 85%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.container_admin h1,  {
+  text-align: center;
+}
+
+.container_admin a:hover  {
+  opacity: 0.7;
+}
+
+.container_admin a {
+  text-decoration: none;
+  color: #DB5461;
+  font-size: 120%;
+  padding: 1%;
+
+}
+
+.container_admin table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+
+.container_admin td, th {
+  border: 1px solid #E3F2FD;
+  text-align: left;
+  padding: 8px;
+}
+
+.container_admin tr:nth-child(even) {
+  background-color: #E3F2FD;
+}
+
+.container_admin input[type=submit] {
+  text-decoration: none;
+  background-color: #DB5461;
+  color: white;
+  border: 0;
+}
+
+.container_admin input[type=submit]:hover {
+  opacity: 0.5;
+}
+
+/******************/
+/* form admin */
+/****************/
+input {
+  padding: 0.5%;
+  margin: 0.5%;
+}
+
+td {
+  padding: 1%;
+}
+
+tr {
+  padding: 1%;
+}
+
+
+/******************/
+/** articles.php**/
+/****************/
+.articles_categorie
+{
+  text-align:center;
+  margin: 2%;
+  padding: 2%;
+}
+
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  flex-direction: row;
+  align-content: flex-end;
+  color:black;
+  margin:3%;
+}
+.p_articles{
+  text-align: justify;
+}
+.articles h2 {
+  color:  #DB5461
+}
+
+.link_voir_article {
+  color: #DB5461;
+  text-decoration: none;
+}
+.link_voir_article:hover{
+  color:black;
+}
+
+.card_articles {
+  background-color: #FAFAFA;
+  padding: 20px;
+  margin: 20px;
+  text-align: left;
+}
+
+.link_categorie{
+  text-decoration: none;
+  background-color: #8AA29E;
+  color: white;
+  padding: 0.5%;
+}
+.link_categorie:hover{
+  color: #DB5461;
+}
+.previous_next{
+  text-align: center;
+  margin-top:2%;
+}
+.articles_boutons{
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #8AA29E;
+  color:white;
+}
+.articles_boutons:hover{
+  background-color: #ddd;
+  color: black;
+}
+
+/******************/
+/*** article.php**/
+/****************/
+.article{
+  text-align: center;
+}
+.card_article {
+  background-color: #FAFAFA;
+  padding: 10%;
+  margin: 5%;
+  text-align: justify;
+}
+.card_commentaire{
+  background-color: #FAFAFA;
+  padding: 5px;
+  margin: 2% 5% 2% 5%;
+  text-align: left;
+  border-radius:10px;
+  border: 1px solid #EBEDEF;
+}
+.commentaire{
+  color: grey;
+}
+/******************/
+/*** footer*******/
+/****************/
+
+.navbar_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #8AA29E;
+  padding: 2%;
+  margin-top:5%;
+}
+
+.navbar_bottom a {
+  color: white;
+  text-decoration: none;
+  background-color: #8AA29E;
+  margin: 1% 2% 0 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar_bottom a:hover {
+  opacity: 0.7;
+}
+
+.liste_categories{
+  display: flex;
+  flex-direction: column;
+}
+.liste_footer{
+  display: flex;
+  flex-direction: column;
+}
+/*************************/
