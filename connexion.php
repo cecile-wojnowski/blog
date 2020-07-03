@@ -97,11 +97,11 @@
                       header('location:profil.php');
                     }else{
                       # Si le mdp n'est pas vérifié, on affiche ce message :
-                      $message = 'Mot de passe non reconnu';
+                      $message = 'Mot de passe non reconnu.';
                     }
                   }else{
                     # Si $infos est vide, on affiche ce message :
-                    $message = 'Nous ne connaissons pas ce login';
+                    $message = 'Ce login n\'existe pas.';
                   }
                 }
                 mysqli_close($bdd);
