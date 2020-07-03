@@ -92,17 +92,21 @@ if($nombre_resultats == 0) {
         }
         ?>
 
-        <form class="form_commentaire" action="article.php?id=<?php echo $_GET['id']; ?>" method="post" name="commentaire">
-          <div class="ajout_commentaire">
-            <label> Laissez un commentaire :</label>
-            <textarea id = "commentaire" name="commentaire" value="" rows="5" cols="73"></textarea>
-          </div>
+        <?php if(isset($_SESSION['login'])){
+          ?> <form class="form_commentaire" action="article.php?id=<?php echo $_GET['id']; ?>" method="post" name="commentaire">
+            <div class="ajout_commentaire">
+              <label> Laissez un commentaire :</label>
+              <textarea id = "commentaire" name="commentaire" value="" rows="5" cols="73"></textarea>
+            </div>
 
-          <div class="submit_commentaire">
-            <input id="bouton_commentaire" type="submit" value="Envoyer">
-          </div>
-        </form>
-      </div>
+            <div class="submit_commentaire">
+              <input id="bouton_commentaire" type="submit" value="Envoyer">
+            </div>
+          </form>
+        </div>
+        <?php } ?>
+
+
 
       <?php include("includes/footer.php");?>
     </body>
