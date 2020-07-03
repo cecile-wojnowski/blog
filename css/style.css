@@ -494,7 +494,7 @@ tr {
   margin: 2% 5% 2% 5%;
   text-align: left;
   border-radius:10px;
-  border: 1px solid lightgrey;
+  border: 1px solid #EBEDEF;
 }
 .commentaire{
   color: grey;
