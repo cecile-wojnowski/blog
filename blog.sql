@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 03 Juillet 2020 à 09:47
+-- Généré le :  Ven 03 Juillet 2020 à 17:09
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -88,22 +88,14 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
   `id_utilisateur` int(11) NOT NULL,
   `date` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `commentaires`
 --
 
 INSERT INTO `commentaires` (`id`, `commentaire`, `id_article`, `id_utilisateur`, `date`) VALUES
-(1, 'test', 11, 1, '2020-07-02 12:20:35'),
-(2, 'test', 9, 1, '2020-07-02 12:35:32'),
-(3, 'nouveau test', 9, 1, '2020-07-02 12:44:36'),
-(4, 't', 11, 1, '2020-07-02 12:46:21'),
-(5, 't', 8, 1, '2020-07-02 12:49:15'),
-(6, 'l''', 8, 1, '2020-07-02 12:49:19'),
-(7, 'rr', 12, 1, '2020-07-03 07:27:22'),
-(8, 'test', 12, 1, '2020-07-03 07:45:02'),
-(9, '"" '' " ', 12, 1, '2020-07-03 07:47:13');
+(1, 'Autre exemple de raisonnement fallacieux : l''argument circulaire. C''est lorsque l''on suppose ce que l''on veut montrer...', 12, 2, '2020-07-03 14:53:55');
 
 -- --------------------------------------------------------
 
@@ -139,14 +131,15 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `email` varchar(255) NOT NULL,
   `id_droits` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id`, `login`, `password`, `email`, `id_droits`) VALUES
-(1, 'admin', '$2y$10$K0ID60SKCvBjZ5A81af97O7G3o2RcoDjxzCkA1ZGwtafzPyI9srvK', 'admin@admin', 1337);
+(1, 'admin', '$2y$10$XTI4xywxY3ZCtHI1Z2CH1eqsQ6W9v6o7jEmnDbBnKPu5vr8kAZRdy', 'admin@admin', 1337),
+(2, 'Cecile', '$2y$10$TOG.HNetkM5oEFOpiXjKculqPmE3SBBbZNwQlEWQqsNFpp5gPI5Aq', 'cecile@cecile', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
