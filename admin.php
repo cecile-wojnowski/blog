@@ -258,7 +258,6 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs articles');
             echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
         }
     ?>
-
 		</tbody>
 	 </table>
 
@@ -404,8 +403,8 @@ if (isset($_GET['categorie'])) {
 		 	<thead>
 			 	<tr><th>Commentaire</th><th>Date de création</th><th>ID</th><th>Utilisateur</th></tr>
 		 	</thead>
-		 	<tbody>
 
+		 	<tbody>
 			 	<?php
         $sql = 'SELECT * FROM commentaires';
         $params = [];
@@ -426,7 +425,6 @@ if (isset($_GET['categorie'])) {
 									<td><a href="admin.php?commentaires&modifier_commentaire=<?php echo $d['id'] ?>">modifier</a></td>
 									<td><a href="commentaires&supprimer_commentaire=<?php echo $d['id'] ?>">supprimer</a></td>
 							</div>
-					</table>
 
 
 							<?php
@@ -438,7 +436,8 @@ if (isset($_GET['categorie'])) {
 			            die('Erreur : '.$e->getMessage());
 			        }
 
-              if (isset($_GET['modifier_commentaire'])) {
+              if (isset($_GET['modifier_commentaire']))
+							{
                   if (isset($_POST['modifier'])) {
                     $commentaire3= $_POST['commentaire'];
                     $date3= $_POST['date'];
@@ -462,7 +461,8 @@ if (isset($_GET['categorie'])) {
                       $executepdo3= $pdoselect3->execute();
                       $info3= $pdoselect3->fetch();
                     } ?>
-					</tbody>
+
+
 
 
 										<form name="modification_commentaire" action="" method="POST">
@@ -513,6 +513,8 @@ if (isset($_GET['categorie'])) {
 <?php
     }
       ?>
+		</tbody>
+	</table>
 	</div>
 </div>
 		<footer>
