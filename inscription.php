@@ -87,10 +87,12 @@ if(isset($_POST["login"])) {
     	    </div>
 
           <div>
-                 	    <input type="hidden" id="id_droits" name="id_droits" value="1">
-            		  </div>
+            <input type="hidden" id="id_droits" name="id_droits" value="1">
+          </div>
 
+        <div class="row">
     	    <button type="submit"> Envoyer </button>
+        </div>
         </div>
    	    </form>
         <?php  include('includes/footer.php') ?>

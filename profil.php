@@ -97,9 +97,12 @@ $resultat= mysqli_fetch_all($query, MYSQLI_ASSOC);
                    echo $_SESSION["email"];
                } ?> ">
             </div>
-
-       	  <button type="submit"> Modifier le profil </button>
-<button type="button" name="supprimer" class="supprimer">Supprimer le compte</button>
+          <div class="row">
+       	    <button type="submit"> Modification du profil </button>
+          </div>
+          <div class="row">
+            <button type="button" name="supprimer" class="supprimer">Supprimer le compte</button>
+          </div>
         </form>
         </div>
         </main>
